@@ -3,23 +3,31 @@ POLLOS LOS CAMPOS — EJECUCIÓN LOCAL
 
 REQUISITOS
   - JDK 21 o superior (no se necesita instalar Maven: se incluye mvnw).
-  - No se necesita MySQL ni XAMPP: la base H2 viene embebida.
+  - MySQL 8 o MariaDB 10.5+ (XAMPP sirve). Es la base de datos oficial del proyecto.
 
-PASOS (desde la carpeta raíz, donde está pom.xml)
-  1. Pruebas:    Windows: .\mvnw.cmd clean test        Linux/Mac: ./mvnw clean test
-  2. Ejecutar:   Windows: .\mvnw.cmd spring-boot:run   Linux/Mac: ./mvnw spring-boot:run
-  3. Abrir:      http://localhost:8080
+PASOS CON MYSQL (perfil por defecto)
+  1. Iniciar MySQL y crear la base (desde la carpeta raiz):
+       mysql -u root -p < database/01_esquema.sql
+       mysql -u root -p < database/02_datos_iniciales.sql
+       mysql -u root -p < database/03_programacion_bd.sql
+     (o restaurar todo con: mysql -u root -p < database/backup/backup_pollos_los_campos.sql)
+  2. Si el usuario no es root o tiene clave, definir variables de entorno antes de ejecutar:
+       DB_USER=root   DB_PASSWORD=su_clave      (opcional: DB_URL)
+  3. Pruebas:    Windows: .\mvnw.cmd clean test        Linux/Mac: ./mvnw clean test
+  4. Ejecutar:   Windows: .\mvnw.cmd spring-boot:run   Linux/Mac: ./mvnw spring-boot:run
+  5. Abrir:      http://localhost:8080
+
+  Hibernate solo VALIDA el esquema (ddl-auto=validate): no crea ni modifica tablas.
+
+ALTERNATIVA SIN MYSQL: H2 EMBEBIDO
+  ./mvnw spring-boot:run -Dspring-boot.run.profiles=h2      (Windows: .\mvnw.cmd ...)
+  La base se crea sola en database/pollos_los_campos.mv.db y se siembra al iniciar.
 
   NUNCA compilar con "javac Archivo.java": es un proyecto Maven.
 
 USUARIOS DE PRUEBA
   Administrador: admin@pollosloscampos.local / Admin123!
   Cliente:       se crea desde /registro (o cliente@correo.com / Cliente123! si se carga el script SQL)
-
-OPCIONAL: USAR MYSQL / MARIADB
-  1. Ejecutar los scripts de /database (ver database/README-BD.md) o restaurar el backup.
-  2. Editar src/main/resources/application-mysql.properties (usuario y clave).
-  3. ./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql
 
 BACKUP Y SCRIPTS DE BASE DE DATOS
   database/pollos_los_campos.sql                    script completo

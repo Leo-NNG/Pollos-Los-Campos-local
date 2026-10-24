@@ -36,7 +36,7 @@ class PedidoServiceTest {
     @BeforeEach
     void setUp() {
         service = new PedidoService(pedidos, productos, usuarios, new BigDecimal("5.00"));
-        when(pedidos.save(any())).thenAnswer(inv -> {
+        lenient().when(pedidos.save(any())).thenAnswer(inv -> {
             var p = inv.getArgument(0, com.pollosloscampos.entity.Pedido.class);
             try {
                 var id = p.getClass().getDeclaredField("id");

@@ -1,6 +1,8 @@
 package com.pollosloscampos.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -30,9 +32,11 @@ public class Pedido {
     @Column(length = 120)
     String referencia;
     @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(nullable = false, length = 20)
     TipoEntrega tipoEntrega;
     @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(nullable = false, length = 20)
     MetodoPago metodoPago;
     @Column(nullable = false, precision = 10, scale = 2)
@@ -42,6 +46,7 @@ public class Pedido {
     @Column(nullable = false, precision = 10, scale = 2)
     BigDecimal total;
     @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(nullable = false, length = 25)
     EstadoPedido estado = EstadoPedido.RECIBIDO;
     @Column(nullable = false)

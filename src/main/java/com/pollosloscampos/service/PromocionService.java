@@ -71,7 +71,14 @@ public class PromocionService {
         p.setActiva(!p.isActiva());
     }
 
+    /**
+     * Eliminación LÓGICA: no se borra la fila de la tabla promociones, solo se marca activa = false.
+     * La promoción deja de mostrarse en el sitio y en las consultas de vigentes, pero el registro
+     * (y su historial) se conserva en la base de datos y puede restaurarse con {@link #toggle(Long)}.
+     */
     public void eliminar(Long id) {
-        repo.delete(obtener(id));
+        Promocion p = obtener(id);
+        p.setActiva(false);
+        repo.save(p);
     }
 }

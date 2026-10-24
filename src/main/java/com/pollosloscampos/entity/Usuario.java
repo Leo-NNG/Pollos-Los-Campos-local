@@ -1,6 +1,8 @@
 package com.pollosloscampos.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -22,6 +24,7 @@ public class Usuario {
     @Column(length = 20)
     private String celular;
     @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(nullable = false, length = 20)
     private Rol rol = Rol.ROLE_CLIENTE;
     @Column(nullable = false)

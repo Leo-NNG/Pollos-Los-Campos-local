@@ -8,3 +8,9 @@ target/
 *.iml
 .DS_Store
 Thumbs.db
+
+# Archivos de base de datos H2 y backups binarios (se regeneran al iniciar)
+database/*.mv.db
+database/backup/*.mv.db
+database/*.trace.db
+.vscode/

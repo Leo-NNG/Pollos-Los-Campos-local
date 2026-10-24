@@ -1,6 +1,8 @@
 package com.pollosloscampos.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
 
@@ -21,6 +23,7 @@ public class Contacto {
     @Column(nullable = false, length = 500)
     String mensaje;
     @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(nullable = false, length = 15)
     EstadoContacto estado = EstadoContacto.NUEVO;
     @Column(nullable = false)

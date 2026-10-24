@@ -33,7 +33,8 @@ Ver [`database/README-BD.md`](database/README-BD.md): 8 tablas, PK, FK, UNIQUE, 
 ![Modelo entidad-relación](docs/imagenes/er_modelo.png)
 
 ## Ejecución
-Consulte [`COMO_EJECUTAR.txt`](COMO_EJECUTAR.txt). Resumen: JDK 21 → `./mvnw spring-boot:run` → http://localhost:8080
+Consulte [`COMO_EJECUTAR.txt`](COMO_EJECUTAR.txt). Resumen: JDK 21 + MySQL → ejecutar los scripts de `database/` → `./mvnw spring-boot:run` → http://localhost:8080
+(Sin MySQL: `./mvnw spring-boot:run -Dspring-boot.run.profiles=h2`)
 
 | Rol | Usuario | Contraseña |
 |---|---|---|

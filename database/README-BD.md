@@ -1,7 +1,7 @@
 # Base de datos – Pollos Los Campos
 
-La aplicación puede ejecutarse con **H2 embebido** (por defecto, sin instalar nada) o con **MySQL/MariaDB**
-(perfil `mysql`) usando los scripts de esta carpeta.
+La aplicación usa **MySQL/MariaDB** (perfil `mysql`, por defecto) con los scripts de esta carpeta.
+Como alternativa sin instalar nada puede ejecutarse con **H2 embebido** (perfil `h2`).
 
 | Archivo | Contenido |
 |---|---|
@@ -10,8 +10,8 @@ La aplicación puede ejecutarse con **H2 embebido** (por defecto, sin instalar n
 | `02_datos_iniciales.sql` | Catálogo, usuarios (admin y cliente de prueba), promociones, dirección y contactos. |
 | `03_programacion_bd.sql` | 3 vistas, 1 función, 3 triggers y 5 procedimientos almacenados. |
 | `04_pruebas_bd.sql` | Pruebas del flujo de pedido y casos negativos de restricciones. |
+| `05_demo_eliminacion_logica.sql` | Consultas ANTES/DESPUÉS para demostrar la eliminación lógica (la fila se conserva, cambia la bandera `activa`/`disponible`/`activo`). |
 | `backup/backup_pollos_los_campos.sql` | **Backup lógico** (mysqldump con datos, rutinas y triggers). |
-| `backup/backup_h2_pollos_los_campos.mv.db` | Copia del archivo de la base H2 embebida. |
 
 ## Inventario de objetos
 - 8 tablas · 8 claves primarias · 5 claves foráneas · 5 restricciones UNIQUE · 20 CHECK · 9 índices adicionales
@@ -26,6 +26,7 @@ mysql -u root -p < database/01_esquema.sql
 mysql -u root -p < database/02_datos_iniciales.sql
 mysql -u root -p < database/03_programacion_bd.sql
 mysql -u root -p < database/04_pruebas_bd.sql      # opcional
+mysql -u root -p < database/05_demo_eliminacion_logica.sql   # solo consultas (demo exposición)
 ```
 
 ## Restaurar el backup
@@ -42,7 +43,7 @@ mysqldump -u root -p --databases pollos_los_campos --routines --triggers --event
 ## Usar la aplicación con MySQL
 1. Restaurar o crear la base con los scripts.
 2. Ajustar usuario/clave en `src/main/resources/application-mysql.properties`.
-3. Ejecutar: `./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql`
+3. Ejecutar: `./mvnw spring-boot:run` (el perfil `mysql` es el predeterminado)
 
 ## Credenciales de prueba
 - Administrador: `admin@pollosloscampos.local` / `Admin123!`
