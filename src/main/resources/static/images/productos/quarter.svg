@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420">
+    <defs>
+        <radialGradient id="bg3" cx="50%" cy="42%" r="65%">
+            <stop offset="0%" stop-color="#fffaf1"/>
+            <stop offset="100%" stop-color="#fbf0dd"/>
+        </radialGradient>
+        <linearGradient id="skin3" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f0a33e"/>
+            <stop offset="55%" stop-color="#d97a22"/>
+            <stop offset="100%" stop-color="#a8541a"/>
+        </linearGradient>
+        <linearGradient id="crisp3" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#b5541c"/>
+            <stop offset="100%" stop-color="#7c2e14"/>
+        </linearGradient>
+        <filter id="soft3" x="-40%" y="-40%" width="180%" height="180%">
+            <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#3a1a10" flood-opacity="0.22"/>
+        </filter>
+    </defs>
+    <rect width="600" height="420" rx="42" fill="url(#bg3)"/>
+    <circle cx="300" cy="196" r="150" fill="#d96824" opacity=".10"/>
+    <ellipse cx="300" cy="330" rx="175" ry="26" fill="#fff" filter="url(#soft3)"/>
+    <ellipse cx="300" cy="326" rx="161" ry="18" fill="none" stroke="#eadfcd" stroke-width="3"/>
+    <g transform="translate(260,250) rotate(-12) scale(1.35)" filter="url(#soft3)">
+        <path d="M-14,-70 C28,-78 46,-40 34,-4 C58,10 66,44 40,64 C10,86 -34,70 -40,36 C-58,26 -58,-4 -34,-18 C-40,-40 -34,-62 -14,-70 Z"
+              fill="url(#skin3)"/>
+        <path d="M-14,-70 C28,-78 46,-40 34,-4" fill="none" stroke="url(#crisp3)" stroke-width="6"
+              stroke-linecap="round" opacity=".55"/>
+        <path d="M-46,44 C-62,52 -78,50 -88,60 C-96,68 -92,80 -80,80 C-64,80 -30,64 -18,50" fill="#f4e6c8"
+              stroke="#e3cf9e" stroke-width="3"/>
+    </g>
+    <g transform="translate(372,268) rotate(40) scale(1.0)" filter="url(#soft3)">
+        <path d="M-14,-70 C28,-78 46,-40 34,-4 C58,10 66,44 40,64 C10,86 -34,70 -40,36 C-58,26 -58,-4 -34,-18 C-40,-40 -34,-62 -14,-70 Z"
+              fill="url(#skin3)"/>
+        <path d="M-14,-70 C28,-78 46,-40 34,-4" fill="none" stroke="url(#crisp3)" stroke-width="6"
+              stroke-linecap="round" opacity=".55"/>
+        <path d="M-46,44 C-62,52 -78,50 -88,60 C-96,68 -92,80 -80,80 C-64,80 -30,64 -18,50" fill="#f4e6c8"
+              stroke="#e3cf9e" stroke-width="3"/>
+    </g>
+    <path d="M284,150 C270,131.6 298,122.4 284,104" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"
+          opacity="0.55"/>
+    <path d="M310,150 C296,126.0 324,114.0 310,90" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"
+          opacity="0.7"/>
+    <path d="M336,150 C322,131.6 350,122.4 336,104" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"
+          opacity="0.55"/>
+</svg>

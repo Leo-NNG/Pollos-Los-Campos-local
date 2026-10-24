@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420">
+    <defs>
+        <radialGradient id="bg8" cx="50%" cy="42%" r="65%">
+            <stop offset="0%" stop-color="#fffaf1"/>
+            <stop offset="100%" stop-color="#fbf0dd"/>
+        </radialGradient>
+        <linearGradient id="skin8" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f0a33e"/>
+            <stop offset="55%" stop-color="#d97a22"/>
+            <stop offset="100%" stop-color="#a8541a"/>
+        </linearGradient>
+        <linearGradient id="crisp8" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#b5541c"/>
+            <stop offset="100%" stop-color="#7c2e14"/>
+        </linearGradient>
+        <filter id="soft8" x="-40%" y="-40%" width="180%" height="180%">
+            <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#3a1a10" flood-opacity="0.22"/>
+        </filter>
+    </defs>
+    <rect width="600" height="420" rx="42" fill="url(#bg8)"/>
+    <circle cx="300" cy="196" r="150" fill="#3d8459" opacity=".10"/>
+    <ellipse cx="300" cy="335" rx="165" ry="26" fill="#fff" filter="url(#soft8)"/>
+    <ellipse cx="300" cy="331" rx="151" ry="18" fill="none" stroke="#eadfcd" stroke-width="3"/>
+    <g filter="url(#soft8)">
+        <ellipse cx="300" cy="275" rx="118" ry="50" fill="#fff" stroke="#dfead9" stroke-width="4"/>
+        <path d="M200,262 C214,214 250,196 282,214 C300,190 330,190 348,212 C378,200 402,222 396,254 C392,272 360,286 330,282 C300,296 260,296 232,282 C210,286 196,276 200,262 Z"
+              fill="#4f9a5f"/>
+        <path d="M235,250 C248,228 268,218 286,226" fill="none" stroke="#3d8459" stroke-width="4" opacity=".55"/>
+        <path d="M310,222 C324,214 340,214 350,224" fill="none" stroke="#3d8459" stroke-width="4" opacity=".55"/>
+        <circle cx="248" cy="292" r="12" fill="#c94a35"/>
+        <circle cx="352" cy="292" r="12" fill="#c94a35"/>
+        <circle cx="300" cy="300" r="9" fill="#e7c15c"/>
+    </g>
+</svg>

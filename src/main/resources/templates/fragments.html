@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="header" class="nav">
+    <div class="nav-inner">
+        <a th:href="@{/}" class="brand"><span class="brand-mark"><svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><defs><linearGradient id="bm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6C25B"/><stop offset="1" stop-color="#C8471A"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#bm)"/><path d="M16 6c2 4 6 6 6 11a6 6 0 0 1-12 0c0-2 1-3 2-4 0 2 1 3 2 3 0-4-1-6 2-10z" fill="#fff" opacity=".95"/></svg></span><span>Pollos Los Campos<small>Brasa &amp; carbón</small></span></a>
+        <nav class="nav-links" id="navLinks">
+            <a th:href="@{/}">Inicio</a>
+            <a th:href="@{/menu}">Menú</a>
+            <a th:href="@{/promociones}">Promociones</a>
+            <a th:href="@{/nosotros}">Nosotros</a>
+            <a th:href="@{/contacto}">Contacto</a>
+            <a th:href="@{/seguimiento}">Seguimiento</a>
+            <a th:href="@{/cuenta}">Cuenta</a>
+            <button type="button" class="nav-cart-btn" id="navCartBtn" aria-label="Carrito de compras"
+                    onclick="location.href='/pedido'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span class="cart-badge" id="cartCount">0</span>
+            </button>
+        </nav>
+        <button class="nav-toggle" type="button" aria-label="Abrir menú" onclick="toggleNav()">&#9776;</button>
+    </div>
+</header>
+<footer th:fragment="footer" class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div><h4 style="color:var(--flame);">Pollos Los Campos</h4>
+                <p style="max-width:320px;font-size:.9rem;">Pollo a la brasa preparado al carbón, con ingredientes
+                    seleccionados y atención cercana, todos los días.</p></div>
+            <div><h4>Navegación</h4><a th:href="@{/}">Inicio</a><a th:href="@{/menu}">Menú</a><a
+                    th:href="@{/promociones}">Promociones</a><a th:href="@{/nosotros}">Nosotros</a><a
+                    th:href="@{/contacto}">Contacto</a></div>
+            <div><h4>Contacto</h4><a href="tel:+51999888777">+51 999 888 777</a><a
+                    href="mailto:contacto@pollosloscampos.pe">contacto@pollosloscampos.pe</a><a th:href="@{/contacto}">Chiclayo,
+                Lambayeque · Perú</a></div>
+        </div>
+        <div class="footer-bottom"><span>&copy; <span id="year"></span> Pollos Los Campos. Todos los derechos reservados.</span><span>Lun – Dom · 12:00 m. – 10:30 p. m. · Chiclayo, Perú</span></div>
+    </div>
+</footer>
+
+<nav th:fragment="tabbar" class="tabbar" aria-label="Navegación principal">
+    <a th:href="@{/}" data-tab="/"><svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>Inicio</span></a>
+    <a th:href="@{/menu}" data-tab="/menu"><svg viewBox="0 0 24 24"><path d="M6 3v8a3 3 0 0 0 3 3v7M9 3v6M12 3v8a3 3 0 0 1-3 3M17 3c-2 2-3 5-3 8h3v10"/></svg><span>Menú</span></a>
+    <a th:href="@{/promociones}" data-tab="/promociones"><svg viewBox="0 0 24 24"><path d="M12 3c1 3 5 5 5 9a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-8z"/></svg><span>Ofertas</span></a>
+    <a th:href="@{/pedido}" data-tab="/pedido" class="tab-cart"><svg viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 2-1.5L22 7H6"/></svg><span>Pedido</span><b class="cart-badge" id="cartCountTab">0</b></a>
+    <a th:href="@{/cuenta}" data-tab="/cuenta"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Cuenta</span></a>
+</nav>
+</body>
+</html>

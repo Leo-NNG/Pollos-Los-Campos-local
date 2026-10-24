@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Pedido confirmado | Los Campos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="page">
+    <div th:replace="~{fragments :: header}"></div>
+    <main class="section section-light">
+        <div class="container narrow">
+            <div class="success-card">
+                <div class="success-icon">✓</div>
+                <span class="eyebrow dark">Pedido recibido</span>
+                <h1>¡Gracias, <span th:text="${pedido.nombreCliente}">cliente</span>!</h1>
+                <p>Tu pedido quedó registrado. Guarda este código para hacer seguimiento.</p>
+                <div class="order-code" th:text="${pedido.codigoPedido}">PLC-0000</div>
+                <div class="confirmation-grid">
+                    <div><span>Entrega</span><strong th:text="${pedido.tipoEntrega}"></strong></div>
+                    <div><span>Pago</span><strong th:text="${pedido.metodoPago}"></strong></div>
+                    <div><span>Total</span><strong th:text="'S/ '+${pedido.total}"></strong></div>
+                </div>
+                <div class="confirmation-items">
+                    <div th:each="d:${pedido.detalles}"><span th:text="${d.cantidad}+' × '+${d.producto.nombre}"></span><strong
+                            th:text="'S/ '+${d.subtotal}"></strong></div>
+                </div>
+                <div class="hero-actions centered"><a th:href="@{/seguimiento}" class="btn btn-primary">Seguir mi
+                    pedido</a><a th:href="@{/menu}" class="btn btn-ghost">Seguir comprando</a></div>
+            </div>
+        </div>
+    </main>
+    <div th:replace="~{fragments :: footer}"></div>
+</div>
+<script th:src="@{/js/app.js}"></script>
+<div th:replace="~{fragments :: tabbar}"></div>
+</body>
+</html>

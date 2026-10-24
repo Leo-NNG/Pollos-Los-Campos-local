@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Dashboard | Los Campos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="admin-shell">
+    <div th:replace="~{admin/fragments :: sidebar}"></div>
+    <main class="admin-main">
+        <div class="admin-top">
+            <div><span class="eyebrow dark">Administración</span>
+                <h1>Dashboard</h1>
+                <p>Resumen operativo en tiempo real.</p></div>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card"><span>Ventas de hoy</span><strong th:text="'S/ '+${resumen.ventasHoy}"></strong>
+            </div>
+            <div class="stat-card"><span>Ventas del mes</span><strong th:text="'S/ '+${resumen.ventasMes}"></strong>
+            </div>
+            <div class="stat-card"><span>Pedidos pendientes</span><strong th:text="${resumen.pendientes}"></strong>
+            </div>
+            <div class="stat-card"><span>Completados</span><strong th:text="${resumen.completados}"></strong></div>
+            <div class="stat-card"><span>Clientes</span><strong th:text="${resumen.clientes}"></strong></div>
+            <div class="stat-card"><span>Productos disponibles</span><strong
+                    th:text="${resumen.productosDisponibles}"></strong></div>
+        </div>
+        <section class="admin-section">
+            <div class="admin-section-head"><h2>Estado de pedidos</h2><span class="muted">Datos en tiempo real</span></div>
+            <div class="status-chart">
+                <div class="chart-row" th:each="e : ${estadoCounts}">
+                    <div class="chart-label" th:text="${e.key.name().replace('_',' ')}"></div>
+                    <div class="chart-track">
+                        <div class="chart-bar"
+                             th:style="|width:${e.value == 0 ? 2 : (e.value > 10 ? 100 : e.value * 10)}%|"></div>
+                    </div>
+                    <strong th:text="${e.value}"></strong></div>
+            </div>
+        </section>
+        <section class="admin-section">
+            <div class="admin-section-head"><h2>Pedidos recientes</h2><a th:href="@{/admin/pedidos}">Ver todos →</a>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Cliente</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="p:${pedidos}">
+                        <td><a th:href="@{/admin/pedidos/{id}(id=${p.id})}" th:text="${p.codigoPedido}"></a></td>
+                        <td th:text="${p.nombreCliente}"></td>
+                        <td th:text="'S/ '+${p.total}"></td>
+                        <td><span class="status-badge small" th:text="${p.estado}"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

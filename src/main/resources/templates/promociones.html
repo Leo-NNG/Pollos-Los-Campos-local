@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promociones — Pollos Los Campos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" type="image/svg+xml" th:href="@{/images/favicon.svg}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: header}"></div>
+
+<section class="hero" style="padding:70px 0 0;">
+    <div class="embers"></div>
+    <div class="container" style="position:relative;z-index:2;padding-bottom:50px;">
+        <p class="eyebrow">Ofertas vigentes</p>
+        <h1 style="font-size:clamp(2.2rem,4.6vw,3.2rem);">Promociones</h1>
+        <p class="hero-lede">Combos pensados para cada ocasión: solo, en pareja o en familia.</p>
+    </div>
+    <svg class="flame-divider" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,40 C40,10 80,55 120,35 C160,15 200,55 240,32 C280,10 320,55 360,30 C400,8 440,52 480,34 C520,16 560,55 600,30 C640,8 680,52 720,34 C760,16 800,55 840,30 C880,8 920,52 960,34 C1000,16 1040,55 1080,30 C1110,14 1140,45 1200,30 L1200,60 L0,60 Z"></path>
+    </svg>
+</section>
+
+<section class="section section--paper2">
+    <div class="container">
+        <div class="section-head"><p class="eyebrow">Catálogo de ofertas</p>
+            <h2>Todas las promociones</h2></div>
+        <div class="grid grid-3" th:if="${!#lists.isEmpty(promociones)}">
+            <article class="card-product" th:each="p:${promociones}">
+                <div class="card-media card-media-sm">
+                    <img th:if="${p.imagen}" th:src="${p.imagen}" th:alt="${p.nombre}" loading="lazy"
+                         style="width:100%;height:100%;object-fit:cover;">
+                    <span th:unless="${p.imagen}"
+                          style="font-size:64px;display:grid;place-items:center;height:100%;">🔥</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">⭐ Vigente</span>
+                    <h3 th:text="${p.nombre}">Promoción</h3>
+                    <p th:text="${p.descripcion}">Descripción</p>
+                    <p style="font-size:.82rem;margin-top:-6px;"
+                       th:text="${p.stock>0?('Quedan '+p.stock+' unidades'):'Agotada por hoy'}"
+                       th:style="${p.stock>0?'color:var(--herb)':'color:#a1341f'}"></p>
+                    <div class="card-foot">
+            <span class="price">
+              <span class="old" th:if="${p.precioAnterior}" th:text="'S/ '+${p.precioAnterior}"
+                    style="margin-right:8px"></span>
+              <strong th:text="'S/ '+${p.precioPromocional}">S/ 0.00</strong>
+            </span>
+                        <a class="btn btn-flame btn-sm" th:if="${p.stock>0}" th:href="@{/menu}">Pedir ahora</a>
+                        <button class="btn btn-outline-dark btn-sm" th:unless="${p.stock>0}" disabled>Agotada</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+        <div class="empty-state" th:if="${#lists.isEmpty(promociones)}">
+            <span>🔥</span>
+            <h2>No hay promociones vigentes</h2>
+            <p>Vuelve pronto por nuevas ofertas.</p>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{fragments :: footer}"></div>
+<script th:src="@{/js/app.js}"></script>
+<div th:replace="~{fragments :: tabbar}"></div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú — Pollos Los Campos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" type="image/svg+xml" th:href="@{/images/favicon.svg}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: header}"></div>
+
+<section class="hero" style="padding:70px 0 0;">
+    <div class="embers"></div>
+    <div class="container" style="position:relative;z-index:2;padding-bottom:50px;">
+        <p class="eyebrow">Catálogo completo</p>
+        <h1 style="font-size:clamp(2.2rem,4.6vw,3.2rem);">Nuestro menú</h1>
+        <p class="hero-lede">Todo lo que preparamos al carbón, organizado por categoría, para que elijas con calma.</p>
+    </div>
+    <svg class="flame-divider" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,40 C40,10 80,55 120,35 C160,15 200,55 240,32 C280,10 320,55 360,30 C400,8 440,52 480,34 C520,16 560,55 600,30 C640,8 680,52 720,34 C760,16 800,55 840,30 C880,8 920,52 960,34 C1000,16 1040,55 1080,30 C1110,14 1140,45 1200,30 L1200,60 L0,60 Z"></path>
+    </svg>
+</section>
+
+<section class="section" style="padding-top:44px">
+    <div class="container">
+        <form method="get" th:action="@{/menu}" class="menu-filters">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <div class="field"><label>Buscar</label><input name="q" th:value="${qActual}"
+                                                           placeholder="Buscar pollo, combo, bebida..."></div>
+            <div class="field"><label>Categoría</label>
+                <select name="categoria">
+                    <option value="">Todas</option>
+                    <option th:each="c:${categorias}" th:value="${c.id}" th:text="${c.nombre}"
+                            th:selected="${c.id==categoriaActual}"></option>
+                </select></div>
+            <div class="field"><label>Ordenar</label>
+                <select name="ordenar">
+                    <option value="nombre" th:selected="${ordenarActual=='nombre'}">A-Z</option>
+                    <option value="precioMenor" th:selected="${ordenarActual=='precioMenor'}">Precio menor</option>
+                    <option value="precioMayor" th:selected="${ordenarActual=='precioMayor'}">Precio mayor</option>
+                </select></div>
+            <label class="field-check"><input type="checkbox" name="disponible" value="true"
+                                              th:checked="${disponibleActual==true}"> Disponibles</label>
+            <label class="field-check"><input type="checkbox" name="destacado" value="true"
+                                              th:checked="${destacadoActual==true}"> Destacados</label>
+            <button class="btn btn-flame btn-sm">Filtrar</button>
+            <a class="btn btn-outline-dark btn-sm" th:href="@{/menu}">Limpiar</a>
+        </form>
+
+        <div class="grid grid-3" th:if="${!#lists.isEmpty(productos)}" style="margin-top:34px">
+            <article class="card-product" th:each="p:${productos}">
+                <div class="card-media"><img th:src="@{${p.imagen}}" th:alt="${p.nombre}" loading="lazy">
+                    <span class="card-tag" th:if="${p.etiqueta}" th:text="${p.etiqueta}"
+                          style="position:absolute;top:14px;left:14px"></span></div>
+                <div class="card-body">
+                    <span class="card-tag" th:text="${p.categoria.nombre}">Categoría</span>
+                    <h3 th:text="${p.nombre}">Producto</h3>
+                    <p th:text="${p.descripcion}">Descripción</p>
+                    <div class="availability" th:classappend="${p.disponible?'ok':'off'}" style="margin-bottom:10px">
+                        <span></span><small th:text="${p.disponible?'Disponible':'Agotado'}"></small></div>
+                    <div class="card-foot"><span class="price" th:text="'S/ '+${p.precio}">S/ 0.00</span>
+                        <a class="btn btn-flame btn-sm" th:if="${p.disponible}" th:href="@{/producto/{id}(id=${p.id})}">Agregar</a>
+                        <button class="btn btn-outline-dark btn-sm" disabled th:unless="${p.disponible}">Agotado
+                        </button>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <div class="empty-state" th:if="${#lists.isEmpty(productos)}">
+            <span>🍗</span>
+            <h2>No encontramos productos</h2>
+            <p>Prueba otra búsqueda o categoría.</p>
+            <a class="btn btn-flame" th:href="@{/menu}">Ver todo</a>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{fragments :: footer}"></div>
+<script th:src="@{/js/app.js}"></script>
+<div th:replace="~{fragments :: tabbar}"></div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear cuenta — Pollos Los Campos</title>
+    <meta name="theme-color" content="#1B120E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" type="image/svg+xml" th:href="@{/images/favicon.svg}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: header}"></div>
+
+<div class="auth-wrap">
+    <div class="auth-visual">
+        <div>
+            <p class="eyebrow">Mi cuenta Los Campos</p>
+            <p class="auth-visual-quote">Únete y sé el primero en enterarte de nuestras <em>promociones exclusivas</em>.
+            </p>
+        </div>
+        <div class="auth-visual-foot">
+            <div><strong>100%</strong><span>A la brasa, todos los días</span></div>
+            <div><strong>+15</strong><span>Combos y promociones</span></div>
+            <div><strong>5★</strong><span>Atención cercana</span></div>
+        </div>
+    </div>
+    <div class="auth-form-side">
+        <div class="auth-card wide">
+            <div class="auth-tabs">
+                <a th:href="@{/login}" class="auth-tab">Iniciar sesión</a>
+                <button type="button" class="auth-tab active" data-target="panel-register">Crear cuenta</button>
+            </div>
+            <div class="auth-panel active" id="panel-register">
+                <h1 class="auth-title">Crea tu cuenta</h1>
+                <p class="auth-subtitle">Regístrate para guardar tus datos y ver promos pensadas para ti.</p>
+                <div class="form-msg" style="display:block;color:#c94a35" th:if="${errorGeneral}"
+                     th:text="${errorGeneral}"></div>
+                <form th:action="@{/registro/crear}" th:object="${usuarioRequest}" method="post" class="auth-form">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <div class="field-row" style="display:flex;gap:14px">
+                        <div class="field" style="flex:1"><label>Nombres</label><input th:field="*{nombres}"><small
+                                style="color:#c94a35" th:errors="*{nombres}"></small></div>
+                        <div class="field" style="flex:1"><label>Apellidos</label><input th:field="*{apellidos}"><small
+                                style="color:#c94a35" th:errors="*{apellidos}"></small></div>
+                    </div>
+                    <div class="field"><label>Correo electrónico</label><input th:field="*{correo}" type="email"
+                                                                               placeholder="tucorreo@ejemplo.com"><small
+                            style="color:#c94a35" th:errors="*{correo}"></small></div>
+                    <div class="field"><label>Celular</label><input th:field="*{celular}" maxlength="9"><small
+                            style="color:#c94a35" th:errors="*{celular}"></small></div>
+                    <div class="field-row" style="display:flex;gap:14px">
+                        <div class="field password-field" style="flex:1"><label>Contraseña</label><input id="reg-pass"
+                                                                                                         th:field="*{password}"
+                                                                                                         type="password">
+                            <button type="button" class="password-toggle" onclick="togglePassword('reg-pass')">Mostrar
+                            </button>
+                            <small style="color:#c94a35" th:errors="*{password}"></small></div>
+                        <div class="field password-field" style="flex:1"><label>Confirmar contraseña</label><input
+                                id="reg-pass2" th:field="*{confirmarPassword}" type="password">
+                            <button type="button" class="password-toggle" onclick="togglePassword('reg-pass2')">
+                                Mostrar
+                            </button>
+                            <small style="color:#c94a35" th:errors="*{confirmarPassword}"></small></div>
+                    </div>
+                    <div class="field"><label>Código de administrador <small style="color:var(--ink-soft)">(opcional,
+                        solo para personal autorizado)</small></label><input th:field="*{codigoAdmin}"
+                                                                             autocomplete="off"
+                                                                             placeholder="Déjalo vacío si eres cliente"><small
+                            style="color:#c94a35" th:errors="*{codigoAdmin}"></small></div>
+                    <button type="submit" class="btn btn-flame">Crear cuenta</button>
+                </form>
+                <p class="auth-switch">¿Ya tienes cuenta? <a th:href="@{/login}" class="link-flame">Inicia sesión</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments :: footer}"></div>
+<script th:src="@{/js/app.js}"></script>
+<div th:replace="~{fragments :: tabbar}"></div>
+</body>
+</html>

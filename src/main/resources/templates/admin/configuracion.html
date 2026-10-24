@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Configuración | Admin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="admin-shell">
+    <div th:replace="~{admin/fragments :: sidebar}"></div>
+    <main class="admin-main">
+        <div class="admin-top">
+            <div><span class="eyebrow dark">Sistema</span>
+                <h1>Configuración</h1></div>
+        </div>
+        <div class="admin-card"><h2>Estado del sistema</h2>
+            <p>Plataforma operativa. Los datos se almacenan de forma segura y las copias residen en el servidor de la tienda.</p>
+            <div class="config-grid">
+                <div><span>Entorno</span><strong>Producción</strong></div>
+                <div><span>Versión</span><strong>1.0</strong></div>
+                <div><span>Persistencia</span><strong>Base de datos activa</strong></div>
+                <div><span>Seguridad</span><strong>Acceso cifrado</strong></div>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto — Pollos Los Campos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" type="image/svg+xml" th:href="@{/images/favicon.svg}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: header}"></div>
+
+<section class="hero" style="padding:70px 0 0;">
+    <div class="embers"></div>
+    <div class="container" style="position:relative;z-index:2;padding-bottom:50px;">
+        <p class="eyebrow">Escríbenos</p>
+        <h1 style="font-size:clamp(2.2rem,4.6vw,3.2rem);">Contacto</h1>
+        <p class="hero-lede">¿Tienes una consulta, un pedido especial o un comentario? Completa el formulario o
+            comunícate directamente.</p>
+    </div>
+    <svg class="flame-divider" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,40 C40,10 80,55 120,35 C160,15 200,55 240,32 C280,10 320,55 360,30 C400,8 440,52 480,34 C520,16 560,55 600,30 C640,8 680,52 720,34 C760,16 800,55 840,30 C880,8 920,52 960,34 C1000,16 1040,55 1080,30 C1110,14 1140,45 1200,30 L1200,60 L0,60 Z"></path>
+    </svg>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="grid" style="grid-template-columns:1.2fr .8fr;gap:44px;align-items:start;">
+            <div class="form-card">
+                <h2 style="font-size:1.5rem;margin-bottom:20px;">Envíanos un mensaje</h2>
+                <div class="alert success" th:if="${enviado}">✅ ¡Mensaje enviado! Gracias por escribir a Los Campos.
+                </div>
+                <form th:action="@{/contacto/enviar}" th:object="${contactoForm}" method="post">
+                    <div class="form-row">
+                        <div class="field"><label>Nombre</label><input th:field="*{nombre}" maxlength="80"><small
+                                class="error" th:errors="*{nombre}"></small></div>
+                        <div class="field"><label>Teléfono</label><input th:field="*{telefono}" maxlength="20"></div>
+                    </div>
+                    <div class="field"><label>Correo</label><input th:field="*{correo}" type="email"
+                                                                   maxlength="120"><small class="error"
+                                                                                          th:errors="*{correo}"></small>
+                    </div>
+                    <div class="field"><label>Motivo</label>
+                        <select th:field="*{motivo}">
+                            <option value="">Selecciona</option>
+                            <option value="Pedido">Pedido</option>
+                            <option value="Carta">Carta</option>
+                            <option value="Delivery">Delivery</option>
+                            <option value="Sugerencia">Sugerencia</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                        <small class="error" th:errors="*{motivo}"></small></div>
+                    <div class="field"><label>Mensaje</label><textarea th:field="*{mensaje}" rows="5"
+                                                                       maxlength="500"></textarea><small class="error"
+                                                                                                         th:errors="*{mensaje}"></small>
+                    </div>
+                    <button class="btn btn-flame full">Enviar mensaje →</button>
+                </form>
+            </div>
+            <div>
+                <div class="contact-list">
+                    <div><span>📱</span>
+                        <div><strong>Pedidos</strong>
+                            <p>999 888 777</p></div>
+                    </div>
+                    <div><span>📍</span>
+                        <div><strong>Zona</strong>
+                            <p>Chiclayo, Lambayeque</p></div>
+                    </div>
+                    <div><span>🕒</span>
+                        <div><strong>Horario</strong>
+                            <p>Lun - Dom · 12:00 m. - 10:30 p. m.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{fragments :: footer}"></div>
+<script th:src="@{/js/app.js}"></script>
+<div th:replace="~{fragments :: tabbar}"></div>
+</body>
+</html>

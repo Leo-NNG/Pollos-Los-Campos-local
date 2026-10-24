@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Reportes | Admin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="admin-shell">
+    <div th:replace="~{admin/fragments :: sidebar}"></div>
+    <main class="admin-main">
+        <div class="admin-top">
+            <div><span class="eyebrow dark">Indicadores</span>
+                <h1>Reportes</h1></div>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card"><span>Ventas mes</span><strong th:text="'S/ '+${resumen.ventasMes}"></strong></div>
+            <div class="stat-card"><span>Pedidos pendientes</span><strong th:text="${resumen.pendientes}"></strong>
+            </div>
+            <div class="stat-card"><span>Clientes</span><strong th:text="${resumen.clientes}"></strong></div>
+            <div class="stat-card"><span>Mensajes nuevos</span><strong th:text="${resumen.mensajesNuevos}"></strong>
+            </div>
+        </div>
+        <section class="admin-section"><h2>Últimos pedidos</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Código</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="p:${pedidos}">
+                        <td th:text="${#temporals.format(p.fechaCreacion,'dd/MM/yyyy HH:mm')}"></td>
+                        <td th:text="${p.codigoPedido}"></td>
+                        <td th:text="'S/ '+${p.total}"></td>
+                        <td th:text="${p.estado}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

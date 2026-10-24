@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pollos Los Campos — Pollo a la brasa</title>
+    <meta name="description"
+          content="Pollos Los Campos: pollo a la brasa preparado al carbón, con ingredientes seleccionados y atención cercana. Menú, promociones y pedidos online.">
+    <meta name="theme-color" content="#1B120E">
+    <meta property="og:title" content="Pollos Los Campos — Pollo a la brasa al carbón">
+    <meta property="og:description" content="Pide en línea pollo a la brasa, combos y promociones. Delivery y recojo en Chiclayo.">
+    <meta property="og:type" content="website">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" type="image/svg+xml" th:href="@{/images/favicon.svg}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: header}"></div>
+
+<section class="hero hero-index">
+    <div class="embers"></div>
+    <div class="hero-inner">
+        <div>
+            <p class="eyebrow">Al carbón, todos los días</p>
+            <h1>Fuego, carbón y <em>tradición</em><br>en cada mesa.</h1>
+            <p class="hero-lede">En Pollos Los Campos preparamos cada pollo sobre carbón, con ingredientes seleccionados
+                y el mismo cuidado de siempre. Descubre el menú, las promociones vigentes y realiza tu pedido en
+                línea.</p>
+            <div class="hero-ctas">
+                <a th:href="@{/menu}" class="btn btn-flame">Ver el menú</a>
+                <a th:href="@{/promociones}" class="btn btn-outline">Promociones de hoy</a>
+            </div>
+        </div>
+        <div class="hero-badge">
+            <div class="hero-badge-inner"><span class="num">100%</span><span class="lbl">A la brasa</span></div>
+        </div>
+    </div>
+    <svg class="flame-divider" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,40 C40,10 80,55 120,35 C160,15 200,55 240,32 C280,10 320,55 360,30 C400,8 440,52 480,34 C520,16 560,55 600,30 C640,8 680,52 720,34 C760,16 800,55 840,30 C880,8 920,52 960,34 C1000,16 1040,55 1080,30 C1110,14 1140,45 1200,30 L1200,60 L0,60 Z"></path>
+    </svg>
+</section>
+
+<section class="section section--tight reveal">
+    <div class="container">
+        <div class="mobile-cols" style="justify-content:center;">
+            <span class="pill"><span class="dot"></span> Ingredientes seleccionados</span>
+            <span class="pill"><span class="dot"></span> Cocción lenta al carbón</span>
+            <span class="pill"><span class="dot"></span> Atención cercana</span>
+            <span class="pill"><span class="dot"></span> Pedidos para llevar</span>
+        </div>
+    </div>
+</section>
+
+<section class="section section--paper2 reveal">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow">Lo más pedido</p>
+            <h2>Del carbón a tu mesa</h2>
+            <p>Una muestra de nuestros productos principales. Visita el menú completo para conocer todas las
+                combinaciones y presentaciones.</p>
+        </div>
+        <div class="grid grid-3">
+            <article class="card-product" th:each="p : ${destacados}">
+                <div class="card-media"><img th:src="@{${p.imagen}}" th:alt="${p.nombre}" loading="lazy"></div>
+                <div class="card-body">
+                    <span class="card-tag" th:text="${p.categoria.nombre}">Categoría</span>
+                    <h3 th:text="${p.nombre}">Producto</h3>
+                    <p th:text="${p.descripcion}">Descripción</p>
+                    <div class="card-foot"><span class="price" th:text="'S/ '+${p.precio}">S/ 0.00</span>
+                        <a th:href="@{/producto/{id}(id=${p.id})}" class="btn btn-outline-dark btn-sm">Ver más</a></div>
+                </div>
+            </article>
+            <p th:if="${#lists.isEmpty(destacados)}" style="color:var(--ink-soft)">Muy pronto nuevos productos
+                destacados.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section section--char reveal">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow">Promoción de la semana</p>
+            <h2 th:text="${!#lists.isEmpty(promociones)} ? ${promociones[0].nombre} : 'Promociones Los Campos'">
+                Promoción</h2>
+            <p th:text="${!#lists.isEmpty(promociones)} ? ${promociones[0].descripcion} : 'Muy pronto nuevas promociones vigentes.'">
+                Descripción de la promoción.</p>
+        </div>
+        <a th:href="@{/promociones}" class="btn btn-flame">Ver todas las promociones</a>
+    </div>
+</section>
+
+<section class="section reveal">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow">Sobre la empresa</p>
+            <h2>Una pollería hecha con dedicación</h2>
+            <p>Pollos Los Campos es una empresa gastronómica dedicada a la preparación y venta de pollo a la brasa y
+                productos complementarios, comprometida con la calidad y la atención a sus clientes.</p>
+        </div>
+        <a th:href="@{/nosotros}" class="btn btn-outline-dark">Conocer más sobre nosotros</a>
+    </div>
+</section>
+
+<section class="section section--paper2 reveal">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow">Pedir es simple</p>
+            <h2>De tu pantalla a tu mesa en 3 pasos</h2>
+        </div>
+        <div class="grid grid-3 steps-ios">
+            <div class="step-card"><span class="step-n">1</span><h3>Elige</h3><p>Explora el menú y agrega tus favoritos al pedido.</p></div>
+            <div class="step-card"><span class="step-n">2</span><h3>Confirma</h3><p>Indica delivery o recojo y tu método de pago.</p></div>
+            <div class="step-card"><span class="step-n">3</span><h3>Disfruta</h3><p>Sigue tu pedido en tiempo real con su código de seguimiento.</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="section reveal">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow">Lo que dicen nuestros clientes</p>
+            <h2>Sabor que se recomienda solo</h2>
+        </div>
+        <div class="grid grid-3">
+            <figure class="quote-card"><div class="stars">★★★★★</div><blockquote>El pollo llega jugoso, con ese sabor a carbón de verdad. Ya es nuestro plan de domingo.</blockquote><figcaption>Carla M. · Chiclayo</figcaption></figure>
+            <figure class="quote-card"><div class="stars">★★★★★</div><blockquote>Pedir en línea es rapidísimo y el delivery llegó calientito. Muy recomendados.</blockquote><figcaption>Jorge R. · José L. Ortiz</figcaption></figure>
+            <figure class="quote-card"><div class="stars">★★★★★</div><blockquote>Las promociones familiares son un acierto: porciones generosas y buen precio.</blockquote><figcaption>Familia Tantaleán · Chiclayo</figcaption></figure>
+        </div>
+    </div>
+</section>
+
+<section class="section section--char reveal">
+    <div class="container">
+        <div class="visit-card">
+            <div>
+                <p class="eyebrow">Visítanos o pide a domicilio</p>
+                <h2>Abrimos todos los días</h2>
+                <p>Lunes a domingo · 12:00 m. – 10:30 p. m.<br>Chiclayo, Lambayeque · Perú<br>Pedidos: +51 999 888 777</p>
+                <div class="hero-ctas"><a th:href="@{/pedido}" class="btn btn-flame">Hacer mi pedido</a><a th:href="@{/contacto}" class="btn btn-outline">Contáctanos</a></div>
+            </div>
+            <ul class="visit-stats">
+                <li><strong>+5 años</strong><span>al carbón</span></li>
+                <li><strong>30 min</strong><span>delivery promedio</span></li>
+                <li><strong>4.9 ★</strong><span>valoración</span></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{fragments :: footer}"></div>
+<div id="offerBanner" class="offer-banner" role="status">
+    <span class="offer-icon">🛵</span>
+    <div class="offer-text"><strong>Delivery gratis hoy</strong><span>En pedidos desde S/ 45 dentro de Chiclayo.</span>
+    </div>
+    <a th:href="@{/promociones}" class="btn btn-light">Ver oferta</a>
+    <button id="offerClose" class="offer-close" type="button" aria-label="Cerrar aviso">×</button>
+</div>
+<script th:src="@{/js/app.js}"></script>
+<div th:replace="~{fragments :: tabbar}"></div>
+</body>
+</html>

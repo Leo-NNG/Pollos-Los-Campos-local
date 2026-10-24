@@ -1,0 +1,13 @@
+CAPTURAS DE PANTALLA PARA EL INFORME Y LA EXPOSICIÓN
+====================================================
+Automáticas (30): ejecutar con la aplicación en marcha
+    pip install playwright && playwright install chromium
+    python docs/capturas/tomar_capturas.py
+Los nombres (01_inicio.png ... 30_admin_configuracion.png) coinciden con los espacios del informe.
+
+Manuales (5) - guardar con exactamente estos nombres en esta carpeta:
+    31_script_sql_ejecutado.png   scripts SQL ejecutándose en MySQL Workbench / consola
+    32_backup_generado.png        archivo backup_pollos_los_campos.sql generado / restaurado
+    33_pedido_confirmado.png      pantalla con el código PLC-XXXXXXXX tras hacer un pedido
+    34_seguimiento_resultado.png  resultado de buscar el pedido en /seguimiento
+    35_pruebas_maven.png          salida de ./mvnw clean test

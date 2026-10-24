@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Pedido | Admin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="admin-shell">
+    <div th:replace="~{admin/fragments :: sidebar}"></div>
+    <main class="admin-main">
+        <div class="admin-top">
+            <div><span class="eyebrow dark">Pedido</span>
+                <h1 th:text="${pedido.codigoPedido}"></h1>
+                <p th:text="${pedido.nombreCliente+' · '+pedido.telefono}"></p></div>
+            <a class="btn btn-ghost" th:href="@{/admin/pedidos}">← Volver</a></div>
+        <div class="detail-admin-grid">
+            <section class="admin-card"><h2>Datos</h2>
+                <dl>
+                    <dt>Entrega</dt>
+                    <dd th:text="${pedido.tipoEntrega}"></dd>
+                    <dt>Dirección</dt>
+                    <dd th:text="${pedido.direccion ?: 'Recojo en local'}"></dd>
+                    <dt>Referencia</dt>
+                    <dd th:text="${pedido.referencia ?: '-'}"></dd>
+                    <dt>Pago</dt>
+                    <dd th:text="${pedido.metodoPago}"></dd>
+                    <dt>Notas</dt>
+                    <dd th:text="${pedido.notas ?: '-'}"></dd>
+                </dl>
+                <div class="admin-total"><span>Total</span><strong th:text="'S/ '+${pedido.total}"></strong></div>
+            </section>
+            <section class="admin-card"><h2>Productos</h2>
+                <div class="line-row" th:each="d:${pedido.detalles}"><span
+                        th:text="${d.cantidad+' × '+d.producto.nombre}"></span><strong
+                        th:text="'S/ '+${d.subtotal}"></strong></div>
+                <h2 class="mt">Cambiar estado</h2>
+                <form class="inline-form" th:action="@{/admin/pedidos/{id}/estado(id=${pedido.id})}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <select name="estado">
+                        <option th:each="st:${estadosPedido}" th:value="${st}" th:text="${st}"
+                                th:selected="${st==pedido.estado}"></option>
+                    </select>
+                    <button class="btn btn-primary">Guardar</button>
+                </form>
+            </section>
+        </div>
+    </main>
+</div>
+</body>
+</html>

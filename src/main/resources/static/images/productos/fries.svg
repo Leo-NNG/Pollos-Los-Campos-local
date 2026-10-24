@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420">
+    <defs>
+        <radialGradient id="bg5" cx="50%" cy="42%" r="65%">
+            <stop offset="0%" stop-color="#fffaf1"/>
+            <stop offset="100%" stop-color="#fbf0dd"/>
+        </radialGradient>
+        <linearGradient id="skin5" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f0a33e"/>
+            <stop offset="55%" stop-color="#d97a22"/>
+            <stop offset="100%" stop-color="#a8541a"/>
+        </linearGradient>
+        <linearGradient id="crisp5" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#b5541c"/>
+            <stop offset="100%" stop-color="#7c2e14"/>
+        </linearGradient>
+        <filter id="soft5" x="-40%" y="-40%" width="180%" height="180%">
+            <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#3a1a10" flood-opacity="0.22"/>
+        </filter>
+    </defs>
+    <rect width="600" height="420" rx="42" fill="url(#bg5)"/>
+    <circle cx="300" cy="196" r="150" fill="#e0a42a" opacity=".10"/>
+    <ellipse cx="300" cy="335" rx="170" ry="26" fill="#fff" filter="url(#soft5)"/>
+    <ellipse cx="300" cy="331" rx="156" ry="18" fill="none" stroke="#eadfcd" stroke-width="3"/>
+    <rect x="246" y="125" width="12" height="95" rx="4" fill="#f0b93e" transform="rotate(-10 252 190)"
+          filter="url(#soft5)"/>
+    <rect x="260" y="111" width="12" height="109" rx="4" fill="#f0b93e" transform="rotate(-5 266 190)"
+          filter="url(#soft5)"/>
+    <rect x="274" y="97" width="12" height="123" rx="4" fill="#f0b93e" transform="rotate(0 280 190)"
+          filter="url(#soft5)"/>
+    <rect x="288" y="125" width="12" height="95" rx="4" fill="#f0b93e" transform="rotate(5 294 190)"
+          filter="url(#soft5)"/>
+    <rect x="302" y="111" width="12" height="109" rx="4" fill="#f0b93e" transform="rotate(10 308 190)"
+          filter="url(#soft5)"/>
+    <rect x="316" y="97" width="12" height="123" rx="4" fill="#f0b93e" transform="rotate(-10 322 190)"
+          filter="url(#soft5)"/>
+    <rect x="330" y="125" width="12" height="95" rx="4" fill="#f0b93e" transform="rotate(-5 336 190)"
+          filter="url(#soft5)"/>
+    <rect x="344" y="111" width="12" height="109" rx="4" fill="#f0b93e" transform="rotate(0 350 190)"
+          filter="url(#soft5)"/>
+    <g filter="url(#soft5)">
+        <path d="M230,190 L370,190 L352,330 L248,330 Z" fill="#e6482f"/>
+        <path d="M230,190 L370,190 L364,222 L236,222 Z" fill="#fff"/>
+        <text x="300" y="212" font-family="Poppins, sans-serif" font-weight="800" font-size="20" fill="#9f2d22"
+              text-anchor="middle">PLC
+        </text>
+    </g>
+</svg>

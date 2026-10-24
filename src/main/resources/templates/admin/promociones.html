@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Promociones | Admin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="admin-shell">
+    <div th:replace="~{admin/fragments :: sidebar}"></div>
+    <main class="admin-main">
+        <div class="admin-section-head">
+            <div><span class="eyebrow dark">Marketing</span>
+                <h1>Promociones</h1></div>
+            <a class="btn btn-primary" th:href="@{/admin/promociones/nueva}">+ Nueva promoción</a></div>
+        <div class="promo-admin-grid">
+            <article class="admin-card" th:each="p:${promociones}">
+                <div class="admin-card-head"><span class="tag" th:text="${p.activa?'ACTIVA':'INACTIVA'}"></span><strong
+                        th:text="'S/ '+${p.precioPromocional}"></strong></div>
+                <h3 th:text="${p.nombre}"></h3>
+                <p th:text="${p.descripcion}"></p><small th:text="${p.fechaInicio+' → '+p.fechaFin}"></small>
+                <div class="stock-row"><span class="status-badge" th:classappend="${p.stock>0?'ok':'off'}"
+                                             th:text="'Stock: '+${p.stock}"></span>
+                    <form th:action="@{/admin/promociones/{id}/stock(id=${p.id})}" method="post" class="stock-form">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"><input
+                            type="hidden" name="delta" value="-1">
+                        <button class="btn btn-ghost btn-sm" type="submit" title="Quitar 1">−</button>
+                    </form>
+                    <form th:action="@{/admin/promociones/{id}/stock(id=${p.id})}" method="post" class="stock-form">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"><input
+                            type="hidden" name="delta" value="1">
+                        <button class="btn btn-ghost btn-sm" type="submit" title="Agregar 1">+</button>
+                    </form>
+                    <form th:action="@{/admin/promociones/{id}/stock(id=${p.id})}" method="post" class="stock-form">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"><input
+                            type="number" name="delta" placeholder="±" style="width:60px" required>
+                        <button class="btn btn-secondary btn-sm" type="submit">Ajustar</button>
+                    </form>
+                </div>
+                <div class="actions"><a class="btn btn-secondary btn-sm"
+                                        th:href="@{/admin/promociones/{id}/editar(id=${p.id})}">Editar</a>
+                    <form th:action="@{/admin/promociones/{id}/toggle(id=${p.id})}" method="post"><input type="hidden"
+                                                                                                         th:name="${_csrf.parameterName}"
+                                                                                                         th:value="${_csrf.token}">
+                        <button class="btn btn-ghost btn-sm" th:text="${p.activa?'Desactivar':'Activar'}"></button>
+                    </form>
+                    <form th:action="@{/admin/promociones/{id}/eliminar(id=${p.id})}" method="post"><input type="hidden"
+                                                                                                           th:name="${_csrf.parameterName}"
+                                                                                                           th:value="${_csrf.token}">
+                        <button class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar promoción?')">
+                            Eliminar
+                        </button>
+                    </form>
+                </div>
+            </article>
+        </div>
+    </main>
+</div>
+</body>
+</html>

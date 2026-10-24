@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Categorías | Admin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="admin-shell">
+    <div th:replace="~{admin/fragments :: sidebar}"></div>
+    <main class="admin-main">
+        <div class="admin-section-head">
+            <div><span class="eyebrow dark">Catálogo</span>
+                <h1>Categorías</h1></div>
+            <a class="btn btn-primary" th:href="@{/admin/categorias/nueva}">+ Nueva categoría</a></div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="c:${categorias}">
+                    <td th:text="${c.nombre}"></td>
+                    <td th:text="${c.descripcion}"></td>
+                    <td th:text="${c.activo?'ACTIVA':'INACTIVA'}"></td>
+                    <td class="actions"><a class="btn btn-secondary btn-sm"
+                                           th:href="@{/admin/categorias/{id}/editar(id=${c.id})}">Editar</a>
+                        <form th:action="@{/admin/categorias/{id}/toggle(id=${c.id})}" method="post"><input
+                                type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                            <button class="btn btn-ghost btn-sm" th:text="${c.activo?'Desactivar':'Activar'}"></button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+</body>
+</html>

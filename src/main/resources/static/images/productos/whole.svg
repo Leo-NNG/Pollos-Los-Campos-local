@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420">
+    <defs>
+        <radialGradient id="bg1" cx="50%" cy="42%" r="65%">
+            <stop offset="0%" stop-color="#fffaf1"/>
+            <stop offset="100%" stop-color="#fbf0dd"/>
+        </radialGradient>
+        <linearGradient id="skin1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f0a33e"/>
+            <stop offset="55%" stop-color="#d97a22"/>
+            <stop offset="100%" stop-color="#a8541a"/>
+        </linearGradient>
+        <linearGradient id="crisp1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#b5541c"/>
+            <stop offset="100%" stop-color="#7c2e14"/>
+        </linearGradient>
+        <filter id="soft1" x="-40%" y="-40%" width="180%" height="180%">
+            <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#3a1a10" flood-opacity="0.22"/>
+        </filter>
+    </defs>
+    <rect width="600" height="420" rx="42" fill="url(#bg1)"/>
+    <circle cx="300" cy="196" r="150" fill="#7c241d" opacity=".10"/>
+    <ellipse cx="300" cy="330" rx="175" ry="26" fill="#fff" filter="url(#soft1)"/>
+    <ellipse cx="300" cy="326" rx="161" ry="18" fill="none" stroke="#eadfcd" stroke-width="3"/>
+    <g filter="url(#soft1)">
+        <ellipse cx="300" cy="255" rx="100" ry="86" fill="url(#skin1)"/>
+        <path d="M215,230 C240,150 360,150 385,230" fill="none" stroke="url(#crisp1)" stroke-width="7" opacity=".5"/>
+        <ellipse cx="300" cy="230" rx="70" ry="54" fill="#f6c877" opacity=".35"/>
+    </g>
+    <g transform="translate(208,320) rotate(-26) scale(0.62)" filter="url(#soft1)">
+        <path d="M-14,-70 C28,-78 46,-40 34,-4 C58,10 66,44 40,64 C10,86 -34,70 -40,36 C-58,26 -58,-4 -34,-18 C-40,-40 -34,-62 -14,-70 Z"
+              fill="url(#skin1)"/>
+        <path d="M-14,-70 C28,-78 46,-40 34,-4" fill="none" stroke="url(#crisp1)" stroke-width="6"
+              stroke-linecap="round" opacity=".55"/>
+        <path d="M-46,44 C-62,52 -78,50 -88,60 C-96,68 -92,80 -80,80 C-64,80 -30,64 -18,50" fill="#f4e6c8"
+              stroke="#e3cf9e" stroke-width="3"/>
+    </g>
+    <g transform="translate(392,320) rotate(26) scale(0.62)" filter="url(#soft1)">
+        <path d="M-14,-70 C28,-78 46,-40 34,-4 C58,10 66,44 40,64 C10,86 -34,70 -40,36 C-58,26 -58,-4 -34,-18 C-40,-40 -34,-62 -14,-70 Z"
+              fill="url(#skin1)"/>
+        <path d="M-14,-70 C28,-78 46,-40 34,-4" fill="none" stroke="url(#crisp1)" stroke-width="6"
+              stroke-linecap="round" opacity=".55"/>
+        <path d="M-46,44 C-62,52 -78,50 -88,60 C-96,68 -92,80 -80,80 C-64,80 -30,64 -18,50" fill="#f4e6c8"
+              stroke="#e3cf9e" stroke-width="3"/>
+    </g>
+    <g transform="translate(232,220) rotate(-55) scale(0.5)" filter="url(#soft1)">
+        <path d="M-30,-44 C10,-56 46,-30 44,10 C42,44 12,62 -20,54 C-46,48 -56,20 -46,-8 C-52,-22 -44,-38 -30,-44 Z"
+              fill="url(#skin1)"/>
+        <path d="M-30,-44 C10,-56 46,-30 44,10" fill="none" stroke="url(#crisp1)" stroke-width="5"
+              stroke-linecap="round" opacity=".55"/>
+    </g>
+    <g transform="translate(368,220) rotate(55) scale(0.5)" filter="url(#soft1)">
+        <path d="M-30,-44 C10,-56 46,-30 44,10 C42,44 12,62 -20,54 C-46,48 -56,20 -46,-8 C-52,-22 -44,-38 -30,-44 Z"
+              fill="url(#skin1)"/>
+        <path d="M-30,-44 C10,-56 46,-30 44,10" fill="none" stroke="url(#crisp1)" stroke-width="5"
+              stroke-linecap="round" opacity=".55"/>
+    </g>
+    <path d="M274,148 C260,129.6 288,120.4 274,102" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"
+          opacity="0.55"/>
+    <path d="M300,148 C286,124.0 314,112.0 300,88" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"
+          opacity="0.7"/>
+    <path d="M326,148 C312,129.6 340,120.4 326,102" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"
+          opacity="0.55"/>
+</svg>

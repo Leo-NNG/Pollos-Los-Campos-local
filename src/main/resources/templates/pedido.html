@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Tu pedido | Los Campos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="page">
+    <div th:replace="~{fragments :: header}"></div>
+    <main class="section section-light">
+        <div class="container">
+            <div class="checkout-header">
+                <div><span class="eyebrow dark">Paso final</span>
+                    <h1>Confirma tu pedido.</h1>
+                    <p>Completa tus datos y revisa el resumen.</p></div>
+                <a th:href="@{/menu}" class="text-link">← Volver al menú</a></div>
+            <div class="checkout-grid">
+                <form class="form-card" th:action="@{/pedido/crear}" th:object="${pedidoForm}" method="post"
+                      id="pedidoForm"><input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <div class="alert error" th:if="${errorGeneral}" th:text="${errorGeneral}"></div>
+                    <h2>1. Tus datos</h2>
+                    <div class="form-row">
+                        <div class="field"><label>Nombre</label><input th:field="*{nombre}" maxlength="80"><small
+                                class="error" th:errors="*{nombre}"></small></div>
+                        <div class="field"><label>Apellidos *</label><input th:field="*{apellidos}" maxlength="80">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="field"><label>Correo *</label><input th:field="*{correo}" type="email"
+                                                                         maxlength="120"><small class="error"
+                                                                                                th:errors="*{correo}"></small>
+                        </div>
+                        <div class="field"><label>Celular</label><input th:field="*{telefono}" maxlength="9"><small
+                                class="error" th:errors="*{telefono}"></small></div>
+                    </div>
+                    <h2>2. Entrega</h2>
+                    <div class="choice-grid"><label class="choice"><input type="radio" th:field="*{tipoEntrega}"
+                                                                          value="Delivery" checked><span>🛵 <strong>Delivery</strong><small>Te llevamos tu pedido</small></span></label><label
+                            class="choice"><input type="radio" th:field="*{tipoEntrega}" value="Recojo"><span>🏪 <strong>Recojo</strong><small>Lo recoges en el local</small></span></label>
+                    </div>
+                    <div id="deliveryFields">
+                        <div class="field"><label>Dirección</label><input th:field="*{direccion}" maxlength="180"><small
+                                class="error" th:errors="*{direccion}"></small></div>
+                        <div class="field"><label>Referencia</label><input th:field="*{referencia}" maxlength="120">
+                        </div>
+                    </div>
+                    <h2>3. Pago</h2>
+                    <div class="payment-grid"><label class="payment-option"><input type="radio" th:field="*{metodoPago}"
+                                                                                   value="Efectivo" checked><span>💵 Efectivo</span></label><label
+                            class="payment-option"><input type="radio" th:field="*{metodoPago}" value="Yape"><span>📲 Yape</span></label><label
+                            class="payment-option"><input type="radio" th:field="*{metodoPago}" value="Plin"><span>📲 Plin</span></label><label
+                            class="payment-option"><input type="radio" th:field="*{metodoPago}" value="Tarjeta"><span>💳 Tarjeta</span></label>
+                    </div>
+                    <div class="field"><label>Notas</label><textarea th:field="*{notas}" rows="3"
+                                                                     maxlength="250"></textarea></div>
+                    <input type="hidden" th:field="*{carrito}" id="carritoInput"><small class="error"
+                                                                                        th:errors="*{carrito}"></small>
+                    <button class="btn btn-primary full" id="submitPedido">Confirmar pedido →</button>
+                    <p class="form-footnote">El backend consulta nuevamente precios y disponibilidad y recalcula el
+                        total.</p></form>
+                <aside class="order-card">
+                    <div class="order-card-head"><h2>Tu pedido</h2><a th:href="@{/menu}">Agregar</a></div>
+                    <div id="orderItems" class="order-items"></div>
+                    <div id="emptyCart" class="empty-cart"><span>🛒</span>
+                        <p>Tu carrito está vacío.</p><a th:href="@{/menu}" class="btn btn-secondary">Ir al menú</a>
+                    </div>
+                    <div class="order-total"><span>Subtotal</span><strong id="orderSubtotal">S/ 0.00</strong></div>
+                    <div class="order-total"><span>Delivery</span><strong id="orderDelivery">S/ 0.00</strong></div>
+                    <div class="order-total grand"><span>Total</span><strong id="orderTotal">S/ 0.00</strong></div>
+                </aside>
+            </div>
+        </div>
+    </main>
+    <div th:replace="~{fragments :: footer}"></div>
+</div>
+<script th:src="@{/js/app.js}"></script>
+<div th:replace="~{fragments :: tabbar}"></div>
+</body>
+</html>

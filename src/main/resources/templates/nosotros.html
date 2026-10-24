@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosotros — Pollos Los Campos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" type="image/svg+xml" th:href="@{/images/favicon.svg}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: header}"></div>
+
+<section class="hero" style="padding:70px 0 0;">
+    <div class="embers"></div>
+    <div class="container" style="position:relative;z-index:2;padding-bottom:50px;">
+        <p class="eyebrow">La empresa</p>
+        <h1 style="font-size:clamp(2.2rem,4.6vw,3.2rem);">Nosotros</h1>
+        <p class="hero-lede">Pollos Los Campos es una empresa gastronómica dedicada a la preparación y comercialización
+            de pollo a la brasa y productos complementarios.</p>
+    </div>
+    <svg class="flame-divider" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,40 C40,10 80,55 120,35 C160,15 200,55 240,32 C280,10 320,55 360,30 C400,8 440,52 480,34 C520,16 560,55 600,30 C640,8 680,52 720,34 C760,16 800,55 840,30 C880,8 920,52 960,34 C1000,16 1040,55 1080,30 C1110,14 1140,45 1200,30 L1200,60 L0,60 Z"></path>
+    </svg>
+</section>
+
+<section class="section section--tight">
+    <div class="container">
+        <div class="photo-banner"
+             style="background-image:url('https://images.unsplash.com/photo-1712579733874-c3a79f0f9d12?auto=format&fit=crop&w=1600&q=70');">
+            <div class="photo-banner-text">
+                <p class="eyebrow">Nuestra cocina</p>
+                <h3>Al carbón, con paciencia</h3>
+                <p>Cada pollo se cocina lentamente sobre brasas, cuidando el punto exacto de dorado y jugosidad.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="grid grid-3" style="grid-template-columns:1fr 1fr;">
+            <div class="value-card" style="background:var(--paper-2);color:var(--ink);border-color:#EADFCB;">
+                <h3 style="color:var(--ember);">Misión</h3>
+                <p style="color:var(--ink-soft);">Brindar a nuestros clientes productos gastronómicos de calidad,
+                    preparados con ingredientes seleccionados y bajo adecuados estándares de preparación, ofreciendo una
+                    atención amable y eficiente que permita generar una experiencia agradable para cada cliente.</p>
+            </div>
+            <div class="value-card" style="background:var(--paper-2);color:var(--ink);border-color:#EADFCB;">
+                <h3 style="color:var(--ember);">Visión</h3>
+                <p style="color:var(--ink-soft);">Ser una pollería reconocida por la calidad de sus productos, la
+                    atención brindada a sus clientes y la innovación en sus servicios, logrando posicionarse como una de
+                    las principales alternativas gastronómicas de la localidad.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section--char">
+    <div class="container">
+        <div class="section-head"><p class="eyebrow">Lo que nos guía</p>
+            <h2>Nuestros valores</h2></div>
+        <div class="grid grid-3">
+            <div class="value-card"><h3>Calidad</h3>
+                <p>Ofrecer productos preparados con ingredientes adecuados.</p></div>
+            <div class="value-card"><h3>Responsabilidad</h3>
+                <p>Cumplir con los compromisos establecidos con los clientes.</p></div>
+            <div class="value-card"><h3>Respeto</h3>
+                <p>Mantener un trato cordial con clientes y colaboradores.</p></div>
+            <div class="value-card"><h3>Limpieza</h3>
+                <p>Mantener buenas prácticas de higiene en la preparación de alimentos.</p></div>
+            <div class="value-card"><h3>Trabajo en equipo</h3>
+                <p>Fomentar la colaboración entre los trabajadores.</p></div>
+            <div class="value-card"><h3>Atención al cliente</h3>
+                <p>Brindar un servicio amable y eficiente.</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="section section--paper2">
+    <div class="container">
+        <div class="section-head"><p class="eyebrow">Estructura</p>
+            <h2>Organigrama</h2>
+            <p>La estructura organizacional de Pollos Los Campos.</p></div>
+        <div class="org">
+            <div class="org-node" style="background:var(--flame);color:var(--char-1);border-color:var(--flame);">Gerente
+                General
+            </div>
+            <div class="org-line"></div>
+            <div class="org-row">
+                <div class="org-node">Área Administrativa</div>
+                <div class="org-node">Área de Cocina</div>
+                <div class="org-node">Área de Atención al Cliente</div>
+            </div>
+        </div>
+        <div class="grid grid-3" style="margin-top:44px;">
+            <div class="card-product">
+                <div class="card-body"><span class="card-tag">Gerencia</span>
+                    <h3>Gerente General</h3>
+                    <p>Supervisa las actividades generales de la empresa y toma decisiones sobre el funcionamiento del
+                        negocio.</p></div>
+            </div>
+            <div class="card-product">
+                <div class="card-body"><span class="card-tag">Administración</span>
+                    <h3>Área Administrativa</h3>
+                    <p>Organiza las actividades administrativas, controla los recursos y apoya en la gestión de la
+                        empresa.</p></div>
+            </div>
+            <div class="card-product">
+                <div class="card-body"><span class="card-tag">Cocina</span>
+                    <h3>Área de Cocina</h3>
+                    <p>Responsable de la preparación de los productos, control de ingredientes y cumplimiento de
+                        higiene.</p></div>
+            </div>
+            <div class="card-product" style="grid-column:span 3;max-width:420px;margin:0 auto;">
+                <div class="card-body"><span class="card-tag">Atención al cliente</span>
+                    <h3>Área de Atención al Cliente</h3>
+                    <p>Recibe y atiende a los clientes, registra pedidos y brinda información sobre productos y
+                        promociones.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{fragments :: footer}"></div>
+<script th:src="@{/js/app.js}"></script>
+<div th:replace="~{fragments :: tabbar}"></div>
+</body>
+</html>

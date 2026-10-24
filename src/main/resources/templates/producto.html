@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title th:text="${producto.nombre}+' | Los Campos'">Producto</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="page">
+    <div th:replace="~{fragments :: header}"></div>
+    <main class="section section-light">
+        <div class="container detail-grid">
+            <div class="detail-image"><img th:src="@{${producto.imagen}}" th:alt="${producto.nombre}"></div>
+            <div><span class="category" th:text="${producto.categoria.nombre}"></span>
+                <h1 th:text="${producto.nombre}"></h1>
+                <p class="lead" th:text="${producto.descripcion}"></p>
+                <div class="detail-price" th:text="'S/ '+${producto.precio}"></div>
+                <div class="availability big" th:classappend="${producto.disponible?'ok':'off'}"><span></span><small
+                        th:text="${producto.disponible?'Disponible':'Agotado'}"></small></div>
+                <div class="option-note"><strong>Personalización</strong>
+                    <p>Piezas, acompañamientos y salsas pueden indicarse como nota especial en el checkout.</p></div>
+                <div class="quantity-row"><label>Cantidad<input id="detailQty" type="number" min="1" max="20" value="1"></label>
+                    <button class="btn btn-primary" th:if="${producto.disponible}"
+                            th:attr="data-producto-id=${producto.id},data-producto-nombre=${producto.nombre},data-producto-precio=${producto.precio}"
+                            onclick="addFromDetail(this)">Agregar al carrito 🛒
+                    </button>
+                    <button class="btn btn-secondary" disabled th:unless="${producto.disponible}">No disponible</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div th:replace="~{fragments :: footer}"></div>
+</div>
+<script th:src="@{/js/app.js}"></script>
+<div th:replace="~{fragments :: tabbar}"></div>
+</body>
+</html>

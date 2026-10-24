@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+<aside th:fragment="sidebar" class="admin-sidebar">
+    <div class="admin-brand">🍗 <span>Pollos<br><b>Los Campos</b></span></div>
+    <nav><a th:href="@{/admin}">📊 Dashboard</a><a th:href="@{/admin/pedidos}">🧾 Pedidos</a><a
+            th:href="@{/admin/productos}">🍗 Productos</a><a th:href="@{/admin/categorias}">🗂 Categorías</a><a
+            th:href="@{/admin/promociones}">🔥 Promociones</a><a th:href="@{/admin/clientes}">👥 Clientes</a><a
+            th:href="@{/admin/mensajes}">💬 Mensajes</a><a th:href="@{/admin/reportes}">📈 Reportes</a><a
+            th:href="@{/admin/configuracion}">⚙ Configuración</a></nav>
+    <a class="admin-back" th:href="@{/}">← Sitio público</a></aside>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420">
+    <defs>
+        <radialGradient id="bg9" cx="50%" cy="42%" r="65%">
+            <stop offset="0%" stop-color="#fffaf1"/>
+            <stop offset="100%" stop-color="#fbf0dd"/>
+        </radialGradient>
+        <linearGradient id="skin9" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f0a33e"/>
+            <stop offset="55%" stop-color="#d97a22"/>
+            <stop offset="100%" stop-color="#a8541a"/>
+        </linearGradient>
+        <linearGradient id="crisp9" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#b5541c"/>
+            <stop offset="100%" stop-color="#7c2e14"/>
+        </linearGradient>
+        <filter id="soft9" x="-40%" y="-40%" width="180%" height="180%">
+            <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#3a1a10" flood-opacity="0.22"/>
+        </filter>
+    </defs>
+    <rect width="600" height="420" rx="42" fill="url(#bg9)"/>
+    <circle cx="300" cy="196" r="150" fill="#cb5a20" opacity=".10"/>
+    <ellipse cx="300" cy="340" rx="175" ry="26" fill="#fff" filter="url(#soft9)"/>
+    <ellipse cx="300" cy="336" rx="161" ry="18" fill="none" stroke="#eadfcd" stroke-width="3"/>
+    <g transform="translate(232,268) rotate(-18) scale(0.62)" filter="url(#soft9)">
+        <path d="M-14,-70 C28,-78 46,-40 34,-4 C58,10 66,44 40,64 C10,86 -34,70 -40,36 C-58,26 -58,-4 -34,-18 C-40,-40 -34,-62 -14,-70 Z"
+              fill="url(#skin9)"/>
+        <path d="M-14,-70 C28,-78 46,-40 34,-4" fill="none" stroke="url(#crisp9)" stroke-width="6"
+              stroke-linecap="round" opacity=".55"/>
+        <path d="M-46,44 C-62,52 -78,50 -88,60 C-96,68 -92,80 -80,80 C-64,80 -30,64 -18,50" fill="#f4e6c8"
+              stroke="#e3cf9e" stroke-width="3"/>
+    </g>
+    <rect x="310" y="200" width="8" height="55" rx="3" fill="#f0b93e"/>
+    <rect x="320" y="190" width="8" height="65" rx="3" fill="#f0b93e"/>
+    <rect x="330" y="200" width="8" height="55" rx="3" fill="#f0b93e"/>
+    <rect x="340" y="190" width="8" height="65" rx="3" fill="#f0b93e"/>
+    <rect x="350" y="200" width="8" height="55" rx="3" fill="#f0b93e"/>
+    <path d="M300,235 L360,235 L350,320 L310,320 Z" fill="#e6482f" filter="url(#soft9)"/>
+    <path d="M300,235 L360,235 L356,250 L304,250 Z" fill="#fff"/>
+    <g filter="url(#soft9)">
+        <path d="M380,240 L432,240 L424,320 L388,320 Z" fill="#eaf4fb" stroke="#2f6689" stroke-width="3"/>
+        <path d="M380,240 L432,240 L428,254 L384,254 Z" fill="#2f6689"/>
+        <rect x="401" y="205" width="10" height="40" rx="5" fill="#2f6689"/>
+    </g>
+</svg>

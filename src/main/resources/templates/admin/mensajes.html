@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Mensajes | Admin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="admin-shell">
+    <div th:replace="~{admin/fragments :: sidebar}"></div>
+    <main class="admin-main">
+        <div class="admin-top">
+            <div><span class="eyebrow dark">Atención</span>
+                <h1>Mensajes</h1></div>
+        </div>
+        <div class="message-list">
+            <article class="admin-card" th:each="m:${mensajes}">
+                <div class="admin-card-head">
+                    <div><h3 th:text="${m.nombre}"></h3><small th:text="${m.correo+' · '+m.telefono}"></small></div>
+                    <span class="tag" th:text="${m.estado}"></span></div>
+                <p><b th:text="${m.motivo}"></b></p>
+                <p th:text="${m.mensaje}"></p>
+                <form class="inline-form" th:action="@{/admin/mensajes/{id}/estado(id=${m.id})}" method="post"><input
+                        type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"><select name="estado">
+                    <option th:each="e:${T(com.pollosloscampos.entity.EstadoContacto).values()}" th:value="${e}"
+                            th:text="${e}" th:selected="${e==m.estado}"></option>
+                </select>
+                    <button class="btn btn-secondary btn-sm">Actualizar</button>
+                </form>
+            </article>
+        </div>
+    </main>
+</div>
+</body>
+</html>

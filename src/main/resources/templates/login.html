@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi cuenta — Pollos Los Campos</title>
+    <meta name="theme-color" content="#1B120E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" type="image/svg+xml" th:href="@{/images/favicon.svg}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: header}"></div>
+
+<div class="auth-wrap">
+    <div class="auth-visual">
+        <div>
+            <p class="eyebrow">Mi cuenta Los Campos</p>
+            <p class="auth-visual-quote">Inicia sesión para ver tu historial de pedidos y disfrutar de <em>promociones
+                exclusivas</em>.</p>
+        </div>
+        <div class="auth-visual-foot">
+            <div><strong>100%</strong><span>A la brasa, todos los días</span></div>
+            <div><strong>+15</strong><span>Combos y promociones</span></div>
+            <div><strong>5★</strong><span>Atención cercana</span></div>
+        </div>
+    </div>
+    <div class="auth-form-side">
+        <div class="auth-card">
+            <div class="auth-tabs">
+                <button type="button" class="auth-tab active" data-target="panel-login">Iniciar sesión</button>
+                <a th:href="@{/registro}" class="auth-tab">Crear cuenta</a>
+            </div>
+            <div class="auth-panel active" id="panel-login">
+                <h1 class="auth-title">Bienvenido de nuevo</h1>
+                <p class="auth-subtitle">Ingresa con tu correo y contraseña para continuar.</p>
+                <div class="form-msg" style="display:block;color:#c94a35" th:if="${loginError}">Correo o contraseña
+                    incorrectos.
+                </div>
+                <div class="form-msg" style="display:block;color:var(--herb)" th:if="${param.registro}">Cuenta creada.
+                    Ahora puedes iniciar sesión.
+                </div>
+                <div class="form-msg" style="display:block;color:var(--herb)" th:if="${param.logout}">Sesión cerrada
+                    correctamente.
+                </div>
+                <form th:action="@{/login}" method="post" class="auth-form">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <div class="field"><label for="login-email">Correo electrónico</label>
+                        <input type="email" id="login-email" name="correo" placeholder="tucorreo@ejemplo.com" required>
+                    </div>
+                    <div class="field password-field"><label for="login-password">Contraseña</label>
+                        <input type="password" id="login-password" name="password" placeholder="Tu contraseña" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('login-password')">
+                            Mostrar
+                        </button>
+                    </div>
+                    <button type="submit" class="btn btn-flame">Iniciar sesión</button>
+                </form>
+                <p class="auth-switch">¿No tienes cuenta? <a th:href="@{/registro}" class="link-flame">Regístrate
+                    aquí</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments :: footer}"></div>
+<script th:src="@{/js/app.js}"></script>
+<div th:replace="~{fragments :: tabbar}"></div>
+</body>
+</html>
