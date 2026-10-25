@@ -11,3 +11,16 @@ Manuales (5) - guardar con exactamente estos nombres en esta carpeta:
     33_pedido_confirmado.png      pantalla con el código PLC-XXXXXXXX tras hacer un pedido
     34_seguimiento_resultado.png  resultado de buscar el pedido en /seguimiento
     35_pruebas_maven.png          salida de ./mvnw clean test
+
+Extra para la exposición (5): eliminación lógica y validaciones nuevas
+    python docs/capturas/capturas_demo.py
+    36_promociones_antes.png / 37_promociones_despues.png / 38_promocion_restaurada.png
+    39_producto_nombre_duplicado.png / 40_categoria_nombre_duplicado.png
+    Evidencia en BD (a mano): ejecutar database/05_demo_eliminacion_logica.sql antes y después de "Eliminar".
+
+Orden recomendado
+    1) Base limpia (scripts 01-03) y aplicación en marcha.
+    2) Hacer un pedido a mano (capturas 33 y 34): así existe el pedido 1 que usa el script automático.
+    3) python docs/capturas/tomar_capturas.py   y luego   python docs/capturas/capturas_demo.py
+    4) Capturas manuales 31, 32, 35 y el backup final (mysqldump) al terminar todas las pruebas.
+

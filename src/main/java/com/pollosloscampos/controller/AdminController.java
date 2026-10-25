@@ -92,6 +92,8 @@ public class AdminController {
 
     @PostMapping("/productos/guardar")
     String pg(@Valid @ModelAttribute("productoForm") ProductoRequest r, BindingResult b, @RequestParam(required = false) Long id, Model m) {
+        if (!b.hasFieldErrors("nombre") && products.nombreEnUso(r.getNombre(), id))
+            b.rejectValue("nombre", "producto.nombre.duplicado", "Ya existe un producto con ese nombre.");
         if (b.hasErrors()) {
             m.addAttribute("categorias", cats.activas());
             if (id != null) m.addAttribute("productoId", id);
@@ -133,6 +135,8 @@ public class AdminController {
 
     @PostMapping("/categorias/guardar")
     String cg(@Valid @ModelAttribute("categoriaForm") CategoriaRequest r, BindingResult b, @RequestParam(required = false) Long id, Model m) {
+        if (!b.hasFieldErrors("nombre") && cats.nombreEnUso(r.getNombre(), id))
+            b.rejectValue("nombre", "categoria.nombre.duplicado", "Ya existe una categoría con ese nombre.");
         if (b.hasErrors()) {
             if (id != null) m.addAttribute("categoriaId", id);
             return "admin/categoria-form";

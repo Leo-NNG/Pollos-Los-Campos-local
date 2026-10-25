@@ -78,8 +78,15 @@ public class ApiController {
     }
 
     @PutMapping("/pedidos/{id}/estado")
-    Map<String, Object> state(@PathVariable Long id, @Valid @RequestBody EstadoPedidoRequest r) {
-        return om(pedidos.cambiarEstado(id, EstadoPedido.valueOf(r.estado().toUpperCase())));
+    ResponseEntity<Map<String, Object>> state(@PathVariable Long id, @Valid @RequestBody EstadoPedidoRequest r) {
+        EstadoPedido nuevo;
+        try {
+            nuevo = EstadoPedido.valueOf(r.estado().trim().toUpperCase());
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.badRequest().body(Map.<String, Object>of("status", 400,
+                    "message", "Estado inválido. Valores permitidos: " + Arrays.toString(EstadoPedido.values())));
+        }
+        return ResponseEntity.ok(om(pedidos.cambiarEstado(id, nuevo)));
     }
 
     @GetMapping("/dashboard/resumen")

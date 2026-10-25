@@ -9,7 +9,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 @Configuration
 public class SecurityConfig {
@@ -35,7 +37,7 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, DaoAuthenticationProvider provider) throws Exception {
-        http.authenticationProvider(provider).csrf(c -> c.ignoringRequestMatchers("/api/**"))
+        http.authenticationProvider(provider).csrf(c -> c.ignoringRequestMatchers(csrfExento()))
                 .authorizeHttpRequests(a -> a
                         .requestMatchers("/css/**", "/js/**", "/images/**", "/", "/menu", "/producto/**", "/promociones", "/nosotros", "/contacto", "/contacto/enviar", "/seguimiento", "/seguimiento/buscar", "/pedido", "/pedido/crear", "/login", "/registro", "/registro/crear", "/error/**", "/403").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/productos", "/api/productos/**", "/api/categorias", "/api/promociones").permitAll()
@@ -44,7 +46,23 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/productos/**").hasRole("ADMIN").requestMatchers(HttpMethod.PUT, "/api/productos/**").hasRole("ADMIN").requestMatchers(HttpMethod.DELETE, "/api/productos/**").hasRole("ADMIN")
                         .requestMatchers("/cuenta/**", "/api/pedidos/*").authenticated().anyRequest().permitAll())
                 .formLogin(f -> f.loginPage("/login").usernameParameter("correo").passwordParameter("password").defaultSuccessUrl("/post-login", true).failureUrl("/login?error=true").permitAll())
-                .logout(l -> l.logoutSuccessUrl("/?logout=true").permitAll()).exceptionHandling(e -> e.accessDeniedPage("/403"));
+                .httpBasic(Customizer.withDefaults()).logout(l -> l.logoutSuccessUrl("/?logout=true").permitAll()).exceptionHandling(e -> e.accessDeniedPage("/403"));
         return http.build();
+    }
+
+    /**
+     * CSRF protege las sesiones con cookie del navegador. Solo se exceptúa:
+     *  - POST /api/pedidos (pedido público, sin sesión), y
+     *  - peticiones que se autentican con cabecera "Authorization: Basic ..." (Postman, scripts),
+     *    que no usan cookie de sesión y por tanto no son vulnerables a CSRF.
+     * El resto de /api/** (POST/PUT/DELETE con sesión del navegador) exige token CSRF.
+     */
+    private RequestMatcher csrfExento() {
+        return req -> {
+            String auth = req.getHeader("Authorization");
+            boolean basic = auth != null && auth.regionMatches(true, 0, "Basic ", 0, 6);
+            boolean pedidoPublico = "POST".equalsIgnoreCase(req.getMethod()) && "/api/pedidos".equals(req.getRequestURI());
+            return basic || pedidoPublico;
+        };
     }
 }

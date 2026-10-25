@@ -10,6 +10,10 @@ import org.springframework.data.repository.query.Param;
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
     List<Producto> findAllByOrderByNombreAsc();
 
+    boolean existsByNombreIgnoreCase(String nombre);
+
+    boolean existsByNombreIgnoreCaseAndIdNot(String nombre, Long id);
+
     List<Producto> findByDisponibleTrueAndDestacadoTrueOrderByNombreAsc();
 
     List<Producto> findByDisponibleTrueOrderByNombreAsc();

@@ -56,7 +56,10 @@ public class ProductoService {
     private Producto fill(Producto p, ProductoRequest r) {
         Categoria c = cats.findById(r.getCategoriaId()).orElseThrow(() -> new RecursoNoEncontradoException("Categoría no encontrada."));
         if (!c.isActivo()) throw new ReglaNegocioException("La categoría está inactiva.");
-        p.setNombre(r.getNombre().trim());
+        String nombre = r.getNombre().trim();
+        if (nombreEnUso(nombre, p.getId()))
+            throw new ReglaNegocioException("Ya existe un producto con ese nombre.");
+        p.setNombre(nombre);
         p.setDescripcion(r.getDescripcion().trim());
         p.setPrecio(r.getPrecio());
         p.setCategoria(c);
@@ -65,6 +68,13 @@ public class ProductoService {
         p.setDisponible(r.isDisponible());
         p.setDestacado(r.isDestacado());
         return repo.save(p);
+    }
+
+    /** true si otro producto (distinto de idActual) ya usa ese nombre; coincide con la restricción UNIQUE de la BD. */
+    @Transactional(readOnly = true)
+    public boolean nombreEnUso(String nombre, Long idActual) {
+        String n = nombre.trim();
+        return idActual == null ? repo.existsByNombreIgnoreCase(n) : repo.existsByNombreIgnoreCaseAndIdNot(n, idActual);
     }
 
     public void toggle(Long id) {

@@ -65,7 +65,7 @@ with sync_playwright() as p:
     # contacto con error de validación y envío correcto
     try:
         page.fill("#nombre, input[name=nombre]", "")
-        page.click("form button[type=submit]")
+        page.click('form[action$="/contacto/enviar"] button')
         page.wait_for_load_state("networkidle")
         shot(page, "contacto_validacion")
     except Exception as e:

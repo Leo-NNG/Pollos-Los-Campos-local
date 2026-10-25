@@ -37,12 +37,15 @@ mysql -u root -p < database/backup/backup_pollos_los_campos.sql
 ## Generar un nuevo backup
 ```bash
 mysqldump -u root -p --databases pollos_los_campos --routines --triggers --events \
-          --single-transaction --add-drop-database > database/backup/backup_pollos_los_campos.sql
+          --single-transaction --add-drop-database \
+          --result-file=database/backup/backup_pollos_los_campos.sql
 ```
+> En Windows PowerShell no use `>` para redirigir: guarda el archivo en UTF-16 y luego no se puede restaurar.
+> Con `--result-file` el archivo queda en UTF-8. (En XAMPP: `C:\xampp\mysql\bin\mysqldump.exe`.)
 
 ## Usar la aplicación con MySQL
 1. Restaurar o crear la base con los scripts.
-2. Ajustar usuario/clave en `src/main/resources/application-mysql.properties`.
+2. Si el usuario no es `root` o tiene clave, definir las variables de entorno `DB_USER` y `DB_PASSWORD` (o editar `application-mysql.properties`).
 3. Ejecutar: `./mvnw spring-boot:run` (el perfil `mysql` es el predeterminado)
 
 ## Credenciales de prueba

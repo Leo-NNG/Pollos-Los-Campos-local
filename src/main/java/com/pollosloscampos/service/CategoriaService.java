@@ -52,6 +52,13 @@ public class CategoriaService {
         return c;
     }
 
+    /** true si otra categoría (distinta de idActual) ya usa ese nombre; coincide con la restricción UNIQUE de la BD. */
+    @Transactional(readOnly = true)
+    public boolean nombreEnUso(String nombre, Long idActual) {
+        var x = repo.findByNombreIgnoreCase(nombre.trim());
+        return x.isPresent() && !x.get().getId().equals(idActual);
+    }
+
     public void toggle(Long id) {
         Categoria c = obtener(id);
         c.setActivo(!c.isActivo());
