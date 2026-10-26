@@ -49,19 +49,23 @@
                             style="color:#c94a35" th:errors="*{correo}"></small></div>
                     <div class="field"><label>Celular</label><input th:field="*{celular}" maxlength="9"><small
                             style="color:#c94a35" th:errors="*{celular}"></small></div>
-                    <div class="field-row" style="display:flex;gap:14px">
-                        <div class="field password-field" style="flex:1"><label>Contraseña</label><input id="reg-pass"
-                                                                                                         th:field="*{password}"
-                                                                                                         type="password">
-                            <button type="button" class="password-toggle" onclick="togglePassword('reg-pass')">Mostrar
-                            </button>
-                            <small style="color:#c94a35" th:errors="*{password}"></small></div>
-                        <div class="field password-field" style="flex:1"><label>Confirmar contraseña</label><input
-                                id="reg-pass2" th:field="*{confirmarPassword}" type="password">
-                            <button type="button" class="password-toggle" onclick="togglePassword('reg-pass2')">
-                                Mostrar
-                            </button>
-                            <small style="color:#c94a35" th:errors="*{confirmarPassword}"></small></div>
+                    <div class="field-row" style="display:flex;gap:14px;align-items:flex-start">
+                        <div class="field password-field" style="flex:1">
+                            <label for="reg-pass">Contraseña</label>
+                            <div class="pw-wrap">
+                                <input id="reg-pass" th:field="*{password}" type="password">
+                                <button type="button" class="password-toggle" onclick="togglePassword('reg-pass')">Mostrar</button>
+                            </div>
+                            <small style="color:#c94a35" th:errors="*{password}"></small>
+                        </div>
+                        <div class="field password-field" style="flex:1">
+                            <label for="reg-pass2">Confirmar contraseña</label>
+                            <div class="pw-wrap">
+                                <input id="reg-pass2" th:field="*{confirmarPassword}" type="password">
+                                <button type="button" class="password-toggle" onclick="togglePassword('reg-pass2')">Mostrar</button>
+                            </div>
+                            <small style="color:#c94a35" th:errors="*{confirmarPassword}"></small>
+                        </div>
                     </div>
                     <div class="field"><label>Código de administrador <small style="color:var(--ink-soft)">(opcional,
                         solo para personal autorizado)</small></label><input th:field="*{codigoAdmin}"

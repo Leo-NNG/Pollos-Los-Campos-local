@@ -21,8 +21,8 @@
                         de administración</a><a class="btn btn-secondary btn-sm" th:href="@{/admin/promociones}">Promociones
                         y stock</a></div>
                 </div>
-                <form th:action="@{/logout}" method="post"><input type="hidden" th:name="${_csrf.parameterName}"
-                                                                  th:value="${_csrf.token}">
+                <form th:action="@{/logout}" method="post" onsubmit="clearCart()">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                     <button class="btn btn-ghost">Cerrar sesión</button>
                 </form>
             </div>

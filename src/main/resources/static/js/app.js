@@ -2,6 +2,7 @@ const CART_KEY='plc_cart_v1';
 const money=n=>`S/ ${Number(n||0).toFixed(2)}`;
 function getCart(){try{return JSON.parse(localStorage.getItem(CART_KEY)||'[]')}catch{return[]}}
 function saveCart(c){localStorage.setItem(CART_KEY,JSON.stringify(c));updateCartCount()}
+function clearCart(){localStorage.removeItem(CART_KEY);updateCartCount()}
 function updateCartCount(){const n=getCart().reduce((s,i)=>s+Number(i.cantidad||0),0);document.querySelectorAll('#cartCount,#cartCountTab').forEach(e=>e.textContent=n)}
 function addToCart(id,nombre,precio,cantidad=1){const c=getCart();cantidad=Math.max(1,Math.min(20,Number(cantidad)||1));const x=c.find(i=>Number(i.id)===Number(id));if(x)x.cantidad=Math.min(20,x.cantidad+cantidad);else c.push({id:Number(id),nombre:String(nombre),precio:Number(precio),cantidad});saveCart(c);toast('Producto agregado al carrito')}
 function quickAdd(e,el){e.preventDefault();addToCart(el.dataset.productoId,el.dataset.productoNombre,el.dataset.productoPrecio,1)}
@@ -10,7 +11,7 @@ function renderOrder(){const box=document.getElementById('orderItems');if(!box)r
 function changeQty(i,d){const c=getCart();if(!c[i])return;c[i].cantidad=Math.max(1,Math.min(20,c[i].cantidad+d));saveCart(c);renderOrder()}
 function removeCart(i){const c=getCart();c.splice(i,1);saveCart(c);renderOrder();toast('Producto retirado')}
 function toggleNav(){document.getElementById('navLinks')?.classList.toggle('open')}
-function togglePassword(id){const e=document.getElementById(id);if(e)e.type=e.type==='password'?'text':'password'}
+function togglePassword(id){const e=document.getElementById(id);if(!e)return;const show=e.type==='password';e.type=show?'text':'password';const b=e.parentElement.querySelector('.password-toggle');if(b)b.textContent=show?'Ocultar':'Mostrar'}
 function toast(msg){let t=document.getElementById('toast');if(!t){t=document.createElement('div');t.id='toast';t.style.cssText='position:fixed;right:16px;bottom:16px;z-index:100;background:#201614;color:#fff;padding:12px 15px;border-radius:12px;box-shadow:0 14px 35px rgba(0,0,0,.2);font-size:12px;font-weight:800';document.body.appendChild(t)}t.textContent=msg;t.style.opacity='1';setTimeout(()=>t.style.opacity='0',1800)}
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function markActiveNav(){document.querySelectorAll('.tabbar a').forEach(a=>{const t=a.dataset.tab,p=location.pathname;if(t==='/'?p==='/':(p===t||p.startsWith(t+'/')))a.classList.add('active')});const path=location.pathname;document.querySelectorAll('.nav-links a').forEach(a=>{const href=a.getAttribute('href');if(!href)return;const isHome=href==='/'&&path==='/';const match=href!=='/'&&(path===href||path.startsWith(href+'/'));if(isHome||match)a.classList.add('active')})}
