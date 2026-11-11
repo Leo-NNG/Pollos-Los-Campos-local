@@ -4,6 +4,9 @@ import com.pollosloscampos.entity.Usuario;
 import com.pollosloscampos.repository.UsuarioRepository;
 import org.springframework.context.annotation.*;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.*;
@@ -36,32 +39,33 @@ public class SecurityConfig {
     }
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http, DaoAuthenticationProvider provider) throws Exception {
-        http.authenticationProvider(provider).csrf(c -> c.ignoringRequestMatchers(csrfExento()))
+    SecurityFilterChain securityFilterChain(HttpSecurity http, DaoAuthenticationProvider provider, JwtService jwt, UserDetailsService uds) throws Exception {
+        http.authenticationProvider(provider).addFilterBefore(new JwtAuthenticationFilter(jwt, uds), UsernamePasswordAuthenticationFilter.class).csrf(c -> c.ignoringRequestMatchers(csrfExento()))
                 .authorizeHttpRequests(a -> a
                         .requestMatchers("/css/**", "/js/**", "/images/**", "/", "/menu", "/producto/**", "/promociones", "/nosotros", "/contacto", "/contacto/enviar", "/seguimiento", "/seguimiento/buscar", "/pedido", "/pedido/crear", "/login", "/registro", "/registro/crear", "/error/**", "/403").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/productos", "/api/productos/**", "/api/categorias", "/api/promociones").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/pedidos").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/pedidos", "/api/auth/login").permitAll()
+                        .requestMatchers("/api/auth/me").authenticated()
                         .requestMatchers("/admin/**", "/api/dashboard/**", "/api/pedidos/*/estado").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/productos/**").hasRole("ADMIN").requestMatchers(HttpMethod.PUT, "/api/productos/**").hasRole("ADMIN").requestMatchers(HttpMethod.DELETE, "/api/productos/**").hasRole("ADMIN")
                         .requestMatchers("/cuenta/**", "/api/pedidos/*").authenticated().anyRequest().permitAll())
                 .formLogin(f -> f.loginPage("/login").usernameParameter("correo").passwordParameter("password").defaultSuccessUrl("/post-login", true).failureUrl("/login?error=true").permitAll())
-                .httpBasic(Customizer.withDefaults()).logout(l -> l.logoutSuccessUrl("/?logout=true").permitAll()).exceptionHandling(e -> e.accessDeniedPage("/403"));
+                .httpBasic(Customizer.withDefaults()).logout(l -> l.logoutSuccessUrl("/?logout=true").permitAll()).exceptionHandling(e -> e.accessDeniedPage("/403").defaultAuthenticationEntryPointFor(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED), req -> req.getRequestURI().startsWith("/api/")));
         return http.build();
     }
 
     /**
      * CSRF protege las sesiones con cookie del navegador. Solo se exceptúa:
      *  - POST /api/pedidos (pedido público, sin sesión), y
-     *  - peticiones que se autentican con cabecera "Authorization: Basic ..." (Postman, scripts),
+     *  - peticiones que se autentican con cabecera "Authorization: Basic ..." o "Bearer <JWT>" (Postman, scripts),
      *    que no usan cookie de sesión y por tanto no son vulnerables a CSRF.
      * El resto de /api/** (POST/PUT/DELETE con sesión del navegador) exige token CSRF.
      */
     private RequestMatcher csrfExento() {
         return req -> {
             String auth = req.getHeader("Authorization");
-            boolean basic = auth != null && auth.regionMatches(true, 0, "Basic ", 0, 6);
-            boolean pedidoPublico = "POST".equalsIgnoreCase(req.getMethod()) && "/api/pedidos".equals(req.getRequestURI());
+            boolean basic = auth != null && (auth.regionMatches(true, 0, "Basic ", 0, 6) || auth.regionMatches(true, 0, "Bearer ", 0, 7));
+            boolean pedidoPublico = "POST".equalsIgnoreCase(req.getMethod()) && ("/api/pedidos".equals(req.getRequestURI()) || "/api/auth/login".equals(req.getRequestURI()));
             return basic || pedidoPublico;
         };
     }

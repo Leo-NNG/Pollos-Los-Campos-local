@@ -6,7 +6,7 @@ cuentas con roles y panel de administración.
 
 ## Tecnologías
 Java 21 · Spring Boot 4.1.1 · Spring Web MVC · Thymeleaf · Spring Data JPA · H2 (por defecto) / MySQL (opcional) ·
-Spring Security + BCrypt · Bean Validation · Maven · JUnit 5 · HTML5 / CSS3 / JavaScript.
+Spring Security + BCrypt + JWT (Nimbus) · Bean Validation · Maven · JUnit 5 · HTML5 / CSS3 / Bootstrap 5 / JavaScript.
 
 ## Arquitectura
 `Controller → Service → Repository → Base de datos` con `entity` (modelo), `dto` (formularios validados),
@@ -32,6 +32,13 @@ Ver [`database/README-BD.md`](database/README-BD.md): 8 tablas, PK, FK, UNIQUE, 
 
 ![Modelo entidad-relación](docs/imagenes/er_modelo.png)
 
+## Seguridad: sesión (Thymeleaf) y JWT (API REST)
+- **Web (Thymeleaf):** inicio de sesión con formulario, contraseñas con BCrypt, protección CSRF y roles `ROLE_ADMIN` / `ROLE_CLIENTE`.
+- **API REST:** `POST /api/auth/login` con `{"correo":"...","password":"..."}` devuelve un **JWT** (HS256, 60 min). Se envía en `Authorization: Bearer <token>`; `GET /api/auth/me` devuelve el usuario autenticado. La clave se configura con la variable de entorno `JWT_SECRET` (mínimo 32 caracteres).
+
+## Bootstrap
+Bootstrap 5.3 se carga por CDN (CSS dentro de una capa `@layer` en `style.css`, JS en cada plantilla). Se usa el **modal** para confirmar la eliminación de promociones en el panel de administración.
+
 ## Ejecución
 Consulte [`COMO_EJECUTAR.txt`](COMO_EJECUTAR.txt). Resumen: JDK 21 + MySQL → ejecutar los scripts de `database/` → `./mvnw spring-boot:run` → http://localhost:8080
 (Sin MySQL: `./mvnw spring-boot:run -Dspring-boot.run.profiles=h2`)
@@ -49,7 +56,7 @@ Privadas: `/cuenta` (autenticado) y `/admin/**` (`ROLE_ADMIN`).
 `GET /api/pedidos/{id}`, y (ADMIN) `POST/PUT/DELETE /api/productos`, `PUT /api/pedidos/{id}/estado`, `GET /api/dashboard/resumen`.
 
 ## Pruebas
-`./mvnw clean test` — PedidoServiceTest (5), UsuarioServiceTest (2) y carga del contexto (1).
+`./mvnw clean test` — PedidoServiceTest, UsuarioServiceTest, PromocionServiceTest, ProductoServiceTest, GlobalExceptionHandlerTest, JwtServiceTest (4) y carga del contexto.
 
 ## Integrantes
 Vásquez Sánchez Edgardo José · Diaz Cumpa Leonardo Fabrisio · Ramírez Flores Carlos Aldair · Colchado Urbina Oliver Stalin · Lucero Suclupe Esteban
